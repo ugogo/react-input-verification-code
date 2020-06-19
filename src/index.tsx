@@ -8,6 +8,8 @@ const KEY_CODE = {
   DELETE: 46,
 };
 
+const CONTAINER_DATA_ID = 'REACT_VERIFICATION_CODE_CONTAINER';
+
 export default ({ length = 4, placeholder = '·' }) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
@@ -87,8 +89,29 @@ export default ({ length = 4, placeholder = '·' }) => {
     blurItem(activeIndex);
   };
 
+  React.useEffect(() => {
+    const onDocumentClick = (e: MouseEvent) => {
+      const targetIncludesContainer = e
+        .composedPath()
+        .reduce(
+          (bool: boolean, path: HTMLElement) =>
+            bool || path.dataset?.reactVerificationCodeId === CONTAINER_DATA_ID,
+          false
+        );
+
+      if (!targetIncludesContainer) setActiveIndex(-1);
+    };
+
+    document.addEventListener('click', onDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', onDocumentClick);
+    };
+  }, []);
+
   return (
     <div
+      data-react-verification-code-id={CONTAINER_DATA_ID}
       className='ReactVerificationCode__container'
       style={
         {
