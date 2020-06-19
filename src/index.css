@@ -1,0 +1,40 @@
+.ReactVerificationCode__container {
+  display: flex;
+  position: relative;
+  width: calc(
+    var(--itemWidth) * var(--itemsCount) + var(--itemSpacing) *
+      (var(--itemsCount) - 1)
+  );
+  justify-content: space-between;
+}
+
+.ReactVerificationCode__input,
+.ReactVerificationCode__item {
+  width: var(--itemWidth);
+  height: var(--itemHeight);
+  padding: 0;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: var(--itemHeight);
+  text-align: center;
+}
+
+.ReactVerificationCode__item {
+  transition: box-shadow 0.2s ease-out;
+  box-shadow: 0 0 0 1px inset #ccc;
+}
+
+.ReactVerificationCode__item.is-active {
+  box-shadow: 0 0 0 2px inset #888;
+}
+
+.ReactVerificationCode__input {
+  position: absolute;
+  top: 0;
+  left: calc(
+    var(--activeIndex) * var(--itemWidth) + var(--itemSpacing) *
+      var(--activeIndex)
+  );
+  opacity: 0;
+}
