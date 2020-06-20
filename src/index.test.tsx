@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.';
+import ReactInputVerificationCode from '.';
 
-describe('ExampleComponent', () => {
+describe('ReactInputVerificationCode', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy();
+    expect(ReactInputVerificationCode).toBeTruthy();
   });
 });

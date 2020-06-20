@@ -91,14 +91,15 @@ export default ({ length = 4, placeholder = '·' }) => {
 
   React.useEffect(() => {
     const onDocumentClick = (e: MouseEvent) => {
-      const targetIncludesContainer = e
-        .composedPath()
-        .reduce(
-          (bool: boolean, path: HTMLElement) =>
-            bool ||
-            path.dataset?.reactInputVerificationCodeId === CONTAINER_DATA_ID,
-          false
-        );
+      const targetIncludesContainer = e.composedPath().reduce(
+        (bool: boolean, path: EventTarget) =>
+          bool ||
+          // @to-do: find which type to use
+          // to make it compatible with dataset
+          // @ts-ignore
+          path.dataset.reactInputVerificationCodeId === CONTAINER_DATA_ID,
+        false
+      );
 
       if (!targetIncludesContainer) setActiveIndex(-1);
     };
