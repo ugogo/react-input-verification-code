@@ -12,7 +12,8 @@
     "node": ">=10"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs --css-modules false",
