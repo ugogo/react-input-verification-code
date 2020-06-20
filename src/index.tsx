@@ -97,7 +97,7 @@ export default ({ length = 4, placeholder = '·' }) => {
           // @to-do: find which type to use
           // to make it compatible with dataset
           // @ts-ignore
-          path.dataset.reactInputVerificationCodeId === CONTAINER_DATA_ID,
+          path.dataset?.reactInputVerificationCodeId === CONTAINER_DATA_ID,
         false
       );
 
