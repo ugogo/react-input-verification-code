@@ -1,15 +1,18 @@
 {
-  "name": "react-verification-code",
+  "name": "react-input-verification-code",
   "version": "0.1.0",
   "description": "A verification code input, autocompletion friendly",
   "author": "ugogo",
   "license": "MIT",
-  "repository": "ugogo/react-verification-code",
+  "repository": "ugogo/react-input-verification-code",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs --css-modules false",

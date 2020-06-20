@@ -1,4 +1,4 @@
-.ReactVerificationCode__container {
+.ReactInputVerificationCode__container {
   display: flex;
   position: relative;
   width: calc(
@@ -8,8 +8,8 @@
   justify-content: space-between;
 }
 
-.ReactVerificationCode__input,
-.ReactVerificationCode__item {
+.ReactInputVerificationCode__input,
+.ReactInputVerificationCode__item {
   width: var(--itemWidth);
   height: var(--itemHeight);
   padding: 0;
@@ -21,19 +21,19 @@
   border: 0;
 }
 
-.ReactVerificationCode__item {
+.ReactInputVerificationCode__item {
   --boxShadowColor: #ccc;
   --boxShadowSize: 1px;
   box-shadow: inset 0 0 0 var(--boxShadowSize) var(--boxShadowColor);
   transition: box-shadow 0.2s ease-out;
 }
 
-.ReactVerificationCode__item.is-active {
+.ReactInputVerificationCode__item.is-active {
   --boxShadowColor: #888;
   --boxShadowSize: 2px;
 }
 
-.ReactVerificationCode__input {
+.ReactInputVerificationCode__input {
   position: absolute;
   top: 0;
   left: calc(

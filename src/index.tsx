@@ -95,7 +95,8 @@ export default ({ length = 4, placeholder = '·' }) => {
         .composedPath()
         .reduce(
           (bool: boolean, path: HTMLElement) =>
-            bool || path.dataset?.reactVerificationCodeId === CONTAINER_DATA_ID,
+            bool ||
+            path.dataset?.reactInputVerificationCodeId === CONTAINER_DATA_ID,
           false
         );
 
@@ -111,8 +112,8 @@ export default ({ length = 4, placeholder = '·' }) => {
 
   return (
     <div
-      data-react-verification-code-id={CONTAINER_DATA_ID}
-      className='ReactVerificationCode__container'
+      data-react-input-verification-code-id={CONTAINER_DATA_ID}
+      className='ReactInputVerificationCode__container'
       style={
         {
           '--activeIndex': activeIndex,
@@ -125,7 +126,7 @@ export default ({ length = 4, placeholder = '·' }) => {
     >
       <input
         ref={codeInputRef}
-        className='ReactVerificationCode__input'
+        className='ReactInputVerificationCode__input'
         autoComplete='one-time-code'
         type='text'
         inputMode='decimal'
@@ -143,7 +144,7 @@ export default ({ length = 4, placeholder = '·' }) => {
           ref={ref}
           role='button'
           tabIndex={0}
-          className={`ReactVerificationCode__item ${
+          className={`ReactInputVerificationCode__item ${
             activeIndex === i ? 'is-active' : ''
           }`}
           onFocus={onItemFocus(i)}
