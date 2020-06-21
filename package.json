@@ -15,6 +15,14 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "release-it": {
+    "git": {
+      "commitMessage": "v${version}"
+    },
+    "github": {
+      "release": true
+    }
+  },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs --css-modules false",
     "start": "microbundle-crl watch --no-compress --format modern,cjs --css-modules false",
