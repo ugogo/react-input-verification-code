@@ -6,7 +6,9 @@ A verification code input, autocompletion friendly
 
 ## Examples
 
-- Basic - [CodeSandbox](https://codesandbox.io/s/basic-6ejdp) - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/example/src/Basic.tsx)
+- Basic
+  - [CodeSandbox](https://codesandbox.io/s/basic-6ejdp)
+  - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/basic/src/index.tsx)
 
 ## Install
 

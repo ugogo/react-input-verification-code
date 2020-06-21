@@ -27,14 +27,14 @@
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs --css-modules false",
     "start": "microbundle-crl watch --no-compress --format modern,cjs --css-modules false",
+    "start:playground": "npm start --prefix playground",
+    "dev": "run-p start start:playground",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint \"./src/**/*.+(ts|tsx)\"",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "release": "npm run test && npm run prepare && dotenv release-it"
   },
   "peerDependencies": {
