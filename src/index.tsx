@@ -8,8 +8,6 @@ const KEY_CODE = {
   DELETE: 46,
 };
 
-const CONTAINER_DATA_ID = 'REACT_VERIFICATION_CODE_CONTAINER';
-
 export default ({ length = 4, placeholder = '·' }) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
@@ -34,7 +32,7 @@ export default ({ length = 4, placeholder = '·' }) => {
     if (codeInputRef.current) codeInputRef.current.focus();
   };
 
-  const onItemKeyUp = ({ key, keyCode }: React.KeyboardEvent) => {
+  const onInputKeyUp = ({ key, keyCode }: React.KeyboardEvent) => {
     const newValue = [...value];
     const nextIndex = activeIndex + 1;
     const prevIndex = activeIndex - 1;
@@ -81,7 +79,7 @@ export default ({ length = 4, placeholder = '·' }) => {
     setActiveIndex(-1);
   };
 
-  const onItemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: changeValue } = e.target;
     const isCode = isCodeRegex.test(changeValue);
 
@@ -90,31 +88,13 @@ export default ({ length = 4, placeholder = '·' }) => {
     blurItem(activeIndex);
   };
 
-  React.useEffect(() => {
-    const onDocumentClick = (e: MouseEvent) => {
-      const targetIncludesContainer = e.composedPath().reduce(
-        (bool: boolean, path: EventTarget) =>
-          bool ||
-          // @to-do: find which type to use
-          // to make it compatible with dataset
-          // @ts-ignore
-          path.dataset?.reactInputVerificationCodeId === CONTAINER_DATA_ID,
-        false
-      );
-
-      if (!targetIncludesContainer) setActiveIndex(-1);
-    };
-
-    document.addEventListener('click', onDocumentClick);
-
-    return () => {
-      document.removeEventListener('click', onDocumentClick);
-    };
-  }, []);
+  const onInputBlur = () => {
+    setActiveIndex(-1);
+    blurItem(activeIndex);
+  };
 
   return (
     <div
-      data-react-input-verification-code-id={CONTAINER_DATA_ID}
       className='ReactInputVerificationCode__container'
       style={
         {
@@ -136,8 +116,9 @@ export default ({ length = 4, placeholder = '·' }) => {
         // use onKeyUp rather than onChange for a better control
         // onChange is still needed to handle the autocompletion
         // when receiving a code by SMS
-        onChange={onItemChange}
-        onKeyUp={onItemKeyUp}
+        onChange={onInputChange}
+        onKeyUp={onInputKeyUp}
+        onBlur={onInputBlur}
       />
 
       {itemsRef.map((ref, i) => (
