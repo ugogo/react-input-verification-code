@@ -18,7 +18,8 @@ export default ({ length = 4, placeholder = '·' }) => {
 
   const codeInputRef = React.createRef<HTMLInputElement>();
   const itemsRef = React.useMemo(
-    () => [...new Array(length)].map(() => React.createRef<HTMLDivElement>()),
+    () =>
+      new Array(length).fill(null).map(() => React.createRef<HTMLDivElement>()),
     [length]
   );
 
