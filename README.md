@@ -9,6 +9,9 @@ A verification code input, autocompletion friendly
 - Basic
   - [CodeSandbox](https://codesandbox.io/s/basic-6ejdp)
   - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/basic/src/index.tsx)
+- Custom Styles
+  - [CodeSandbox](https://codesandbox.io/s/custom-styles-bw8s4)
+  - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/custom-styles/src/index.tsx)
 
 ## Install
 
@@ -34,10 +37,10 @@ export default function App() {
 
 ## API
 
-| Key         | Type      | Default | Description                     |
-| ----------- | --------- | ------- | ------------------------------- |
-| length      | `number`  | `4`     | How many items will be rendered |
-| placeholder | `Element` | `·`     | Element rendered when no value  |
+| Key         | Type     | Default | Description                                               |
+| ----------- | -------- | ------- | --------------------------------------------------------- |
+| length      | `number` | `4`     | How many items will be rendered                           |
+| placeholder | `string` | `·`     | String rendered in each item when no value has been typed |
 
 ## License
 
