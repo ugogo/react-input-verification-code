@@ -20,7 +20,8 @@
       "commitMessage": "v${version}"
     },
     "github": {
-      "release": true
+      "release": true,
+      "releaseName": "v${version}"
     }
   },
   "scripts": {
