@@ -6,6 +6,6 @@ import 'react-input-verification-code/dist/index.css';
 import './index.css';
 
 ReactDOM.render(
-  <ReactInputVerificationCode />,
+  <ReactInputVerificationCode onChange={console.log} />,
   document.getElementById('root')
 );

@@ -16,7 +16,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
     "typescript": "^3.7.5",
-    "react-input-verification-code": "0.1.4"
+    "react-input-verification-code": "latest"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"

@@ -13,7 +13,7 @@ ReactDOM.render(
       gravida ligula nulla, eu molestie dui vehicula non. Sed volutpat mollis
       sapien sit amet eleifend. Sed vitae molestie lectus
     </p>
-    <ReactInputVerificationCode placeholder='' />
+    <ReactInputVerificationCode placeholder='' onChange={console.log} />
   </main>,
   document.getElementById('root')
 );
