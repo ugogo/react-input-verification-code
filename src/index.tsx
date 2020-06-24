@@ -8,7 +8,13 @@ const KEY_CODE = {
   DELETE: 46,
 };
 
-export default ({ length = 4, placeholder = '·' }) => {
+type Props = {
+  length?: number;
+  onChange: (data: string) => any;
+  placeholder?: string;
+};
+
+export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
     new Array(length).fill(placeholder)
@@ -92,6 +98,10 @@ export default ({ length = 4, placeholder = '·' }) => {
     setActiveIndex(-1);
     blurItem(activeIndex);
   };
+
+  React.useEffect(() => {
+    onChange(value.join(''));
+  }, [value]);
 
   return (
     <div
