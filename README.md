@@ -37,10 +37,11 @@ export default function App() {
 
 ## API
 
-| Key         | Type     | Default | Description                                               |
-| ----------- | -------- | ------- | --------------------------------------------------------- |
-| length      | `number` | `4`     | How many items will be rendered                           |
-| placeholder | `string` | `·`     | String rendered in each item when no value has been typed |
+| Key         | Type       | Default | Required | Description                                               |
+| ----------- | ---------- | ------- | -------- | --------------------------------------------------------- |
+| length      | `number`   | `4`     | false    | How many items will be rendered                           |
+| onChange    | `function` |         | true     | Function called when the value changes                    |
+| placeholder | `string`   | `·`     | false    | String rendered in each item when no value has been typed |
 
 ## License
 
