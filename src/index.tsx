@@ -144,9 +144,10 @@ export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
             ref={ref}
             role='button'
             tabIndex={0}
+            className={`ReactInputVerificationCode__item ${
+              i === activeIndex ? 'is-active' : ''
+            }`}
             onFocus={onItemFocus(i)}
-            // needed for emotion-styled
-            isActive={i === activeIndex}
           >
             {value[i] || placeholder}
           </Item>
