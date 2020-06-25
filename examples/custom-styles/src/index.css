@@ -6,35 +6,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #1d3557;
+}
+
+.custom-styles {
+  --ReactInputVerificationCode-itemWidth: 2.5rem;
+  --ReactInputVerificationCode-itemHeight: 3.5rem;
 
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 1.5;
-}
-
-main {
-  width: 600px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #262626;
-}
-
-h1 {
-  margin-bottom: 0;
-}
-
-p {
-  padding: 0 3rem;
-}
-
-.ReactInputVerificationCode__container {
-  --itemWidth: 2.5rem !important;
-  --itemHeight: 3.5rem !important;
 }
 
 .ReactInputVerificationCode__input,
@@ -44,9 +26,7 @@ p {
 }
 
 .ReactInputVerificationCode__item {
-  position: relative;
-  color: #262626;
-  font-weight: 500;
+  background-color: #f1faee;
 }
 
 .ReactInputVerificationCode__item:after {
