@@ -32,24 +32,23 @@ p {
   padding: 0 3rem;
 }
 
-.ReactInputVerificationCode__container {
-  --itemWidth: 2.5rem !important;
-  --itemHeight: 3.5rem !important;
+.custom-styles {
+  --ReactInputVerificationCode-itemWidth: 2.5rem;
+  --ReactInputVerificationCode-itemHeight: 3.5rem;
 }
 
-.ReactInputVerificationCode__input,
-.ReactInputVerificationCode__item {
-  --boxShadowSize: 0 !important;
-  border-radius: 0;
-}
-
-.ReactInputVerificationCode__item {
+.custom-styles .ReactInputVerificationCode__item {
   position: relative;
   color: #262626;
   font-weight: 500;
 }
 
-.ReactInputVerificationCode__item:after {
+.custom-styles .ReactInputVerificationCode__item,
+.custom-styles .ReactInputVerificationCode__item.is-active {
+  box-shadow: none;
+}
+
+.custom-styles .ReactInputVerificationCode__item:after {
   content: '';
   display: block;
   position: absolute;
@@ -61,6 +60,6 @@ p {
   transition: background-color 0.2s ease-out;
 }
 
-.ReactInputVerificationCode__item.is-active:after {
+.custom-styles .ReactInputVerificationCode__item.is-active:after {
   background-color: #046cde;
 }
