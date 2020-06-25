@@ -37,11 +37,23 @@ export default function App() {
 
 ## API
 
+### Props
+
 | Key         | Type       | Default | Required | Description                                               |
 | ----------- | ---------- | ------- | -------- | --------------------------------------------------------- |
 | length      | `number`   | `4`     | false    | How many items will be rendered                           |
 | onChange    | `function` |         | true     | Function called when the value changes                    |
 | placeholder | `string`   | `·`     | false    | String rendered in each item when no value has been typed |
+
+### CSS Properties
+
+The following CSS properties are set globally so you can easily override them to fit your needs
+
+| Key                                        | Default  | Description             |
+| ------------------------------------------ | -------- | ----------------------- |
+| `--ReactInputVerificationCode-itemWidth`   | `4.5rem` | Width of an item        |
+| `--ReactInputVerificationCode-itemHeight`  | `5rem`   | Height of an item       |
+| `--ReactInputVerificationCode-itemSpacing` | `1rem`   | Space between two items |
 
 ## License
 
