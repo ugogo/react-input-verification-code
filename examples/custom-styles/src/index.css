@@ -14,24 +14,6 @@ body {
   line-height: 1.5;
 }
 
-main {
-  width: 600px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #262626;
-}
-
-h1 {
-  margin-bottom: 0;
-}
-
-p {
-  padding: 0 3rem;
-}
-
 .custom-styles {
   --ReactInputVerificationCode-itemWidth: 2.5rem;
   --ReactInputVerificationCode-itemHeight: 3.5rem;
