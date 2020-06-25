@@ -31,11 +31,7 @@ export const Input = styled.input`
 
 // item
 
-type ItemProps = {
-  isActive: boolean;
-};
-
-export const Item = styled.div<ItemProps>`
+export const Item = styled.div`
   width: var(--ReactInputVerificationCode-itemWidth);
   height: var(--ReactInputVerificationCode-itemHeight);
   padding: 0;
@@ -45,8 +41,10 @@ export const Item = styled.div<ItemProps>`
   line-height: var(--ReactInputVerificationCode-itemHeight);
   text-align: center;
   border: 0;
-  box-shadow: ${(props) =>
-    `inset 0 0 0 ${props.isActive ? '2px' : '1px'}
-    ${props.isActive ? '#888' : '#ccc'}`};
+  box-shadow: inset 0 0 0 1px #ccc;
   transition: box-shadow 0.2s ease-out;
+
+  &.is-active {
+    box-shadow: inset 0 0 0 2px #888;
+  }
 `;
