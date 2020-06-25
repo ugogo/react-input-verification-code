@@ -117,6 +117,7 @@ export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
       />
 
       <Container
+        className='ReactInputVerificationCode__container'
         // needed for styling
         itemsCount={length}
       >
