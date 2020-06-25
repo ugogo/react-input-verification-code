@@ -1,5 +1,6 @@
 import * as React from 'react';
-import './index.css';
+import { Global, css } from '@emotion/core';
+import { Container, Input, Item } from './styles';
 
 const KEY_CODE = {
   BACKSPACE: 8,
@@ -104,47 +105,52 @@ export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
   }, [value]);
 
   return (
-    <div
-      className='ReactInputVerificationCode__container'
-      style={
-        {
-          '--activeIndex': activeIndex,
-          '--itemsCount': length,
-          '--itemWidth': '4.5rem',
-          '--itemHeight': '5rem',
-          '--itemSpacing': '1rem',
-        } as React.CSSProperties
-      }
-    >
-      <input
-        ref={codeInputRef}
-        className='ReactInputVerificationCode__input'
-        autoComplete='one-time-code'
-        type='text'
-        inputMode='decimal'
-        id='one-time-code'
-        // use onKeyUp rather than onChange for a better control
-        // onChange is still needed to handle the autocompletion
-        // when receiving a code by SMS
-        onChange={onInputChange}
-        onKeyUp={onInputKeyUp}
-        onBlur={onInputBlur}
+    <React.Fragment>
+      <Global
+        styles={css`
+          :root {
+            --ReactInputVerificationCode-itemWidth: 4.5rem;
+            --ReactInputVerificationCode-itemHeight: 5rem;
+            --ReactInputVerificationCode-itemSpacing: 1rem;
+          }
+        `}
       />
 
-      {itemsRef.map((ref, i) => (
-        <div
-          key={i}
-          ref={ref}
-          role='button'
-          tabIndex={0}
-          className={`ReactInputVerificationCode__item ${
-            activeIndex === i ? 'is-active' : ''
-          }`}
-          onFocus={onItemFocus(i)}
-        >
-          {value[i] || placeholder}
-        </div>
-      ))}
-    </div>
+      <Container
+        // needed for styling
+        itemsCount={length}
+      >
+        <Input
+          ref={codeInputRef}
+          className='ReactInputVerificationCode__input'
+          autoComplete='one-time-code'
+          type='text'
+          inputMode='decimal'
+          id='one-time-code'
+          // use onKeyUp rather than onChange for a better control
+          // onChange is still needed to handle the autocompletion
+          // when receiving a code by SMS
+          onChange={onInputChange}
+          onKeyUp={onInputKeyUp}
+          onBlur={onInputBlur}
+          // needed for styling
+          activeIndex={activeIndex}
+        />
+
+        {itemsRef.map((ref, i) => (
+          <Item
+            key={i}
+            ref={ref}
+            role='button'
+            tabIndex={0}
+            onFocus={onItemFocus(i)}
+            // needed for emotion-styled
+            isActive={i === activeIndex}
+          >
+            {value[i] || placeholder}
+          </Item>
+        ))}
+      </Container>
+    </React.Fragment>
   );
 };
