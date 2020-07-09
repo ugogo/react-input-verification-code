@@ -100,8 +100,11 @@ const ReactInputVerificationCode = ({
   };
 
   const onInputBlur = () => {
-    setActiveIndex(-1);
+    // https://github.com/ugogo/react-input-verification-code/issues/1
+    if (activeIndex === -1) return;
+
     blurItem(activeIndex);
+    setActiveIndex(-1);
   };
 
   React.useEffect(() => {
