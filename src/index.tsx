@@ -15,7 +15,11 @@ type Props = {
   placeholder?: string;
 };
 
-export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
+const ReactInputVerificationCode = ({
+  length = 4,
+  onChange,
+  placeholder = '·',
+}: Props) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
     new Array(length).fill(placeholder)
@@ -156,3 +160,5 @@ export default ({ length = 4, onChange, placeholder = '·' }: Props) => {
     </React.Fragment>
   );
 };
+
+export default ReactInputVerificationCode;
