@@ -112,6 +112,24 @@ const ReactInputVerificationCode = ({
   };
 
   React.useEffect(() => {
+    const codeInput = codeInputRef.current;
+    if (!codeInput) return;
+
+    const onPaste = (e: ClipboardEvent) => {
+      e.preventDefault();
+
+      const pastedString = e.clipboardData?.getData('text');
+      if (!pastedString) return;
+
+      const isNumber = !Number.isNaN(+pastedString);
+      if (isNumber) setValue(pastedString.split(''));
+    };
+
+    codeInput.addEventListener('paste', onPaste);
+    return () => codeInput.removeEventListener('paste', onPaste);
+  }, []);
+
+  React.useEffect(() => {
     onChange(value.join(''));
   }, [value]);
 
