@@ -34,9 +34,9 @@ const ReactInputVerificationCode = ({
 
   const isCodeRegex = new RegExp(`^[0-9]{${length}}$`);
 
-  const getItem = (index: number) => itemsRef[index].current!;
-  const focusItem = (index: number): void => getItem(index).focus();
-  const blurItem = (index: number): void => getItem(index).blur();
+  const getItem = (index: number) => itemsRef[index]?.current;
+  const focusItem = (index: number): void => getItem(index)?.focus();
+  const blurItem = (index: number): void => getItem(index)?.blur();
 
   const onItemFocus = (index: number) => () => {
     setActiveIndex(index);
@@ -47,6 +47,9 @@ const ReactInputVerificationCode = ({
     const newValue = [...value];
     const nextIndex = activeIndex + 1;
     const prevIndex = activeIndex - 1;
+
+    const codeInput = codeInputRef.current;
+    const currentItem = getItem(activeIndex);
 
     const isLast = nextIndex === length;
     const isDeleting =
@@ -75,7 +78,7 @@ const ReactInputVerificationCode = ({
 
     // reset the current value
     // and set the new one
-    if (codeInputRef.current) codeInputRef.current.value = '';
+    if (codeInput) codeInput.value = '';
     newValue[activeIndex] = key;
     setValue(newValue);
 
@@ -85,8 +88,9 @@ const ReactInputVerificationCode = ({
       return;
     }
 
-    if (codeInputRef.current) codeInputRef.current.blur();
-    getItem(activeIndex).blur();
+    if (codeInput) codeInput.blur();
+    if (currentItem) currentItem.blur();
+
     setActiveIndex(-1);
   };
 
