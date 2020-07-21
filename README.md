@@ -4,6 +4,11 @@ A verification code input, autocompletion friendly
 
 [![NPM](https://img.shields.io/npm/v/react-input-verification-code.svg)](https://www.npmjs.com/package/react-input-verification-code) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Features
+
+- Support native autocompletion when receiving a code via SMS
+- Support pasted string (when number)
+
 ## Examples
 
 - Basic
