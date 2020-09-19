@@ -13,16 +13,18 @@ type Props = {
   length?: number;
   onChange: (data: string) => any;
   placeholder?: string;
+  value?: string;
 };
 
 const ReactInputVerificationCode = ({
   length = 4,
   onChange,
   placeholder = '·',
+  value: initialValue,
 }: Props) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
-    new Array(length).fill(placeholder)
+    initialValue ? initialValue.split('') : new Array(length).fill(placeholder)
   );
 
   const codeInputRef = React.createRef<HTMLInputElement>();
