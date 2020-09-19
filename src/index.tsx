@@ -147,10 +147,7 @@ const ReactInputVerificationCode = ({
     if (pValue === '' && value.join('') === emptyValue.join('')) return;
 
     // keep internal and external states in sync
-    if (pValue !== value.join('')) {
-      console.log('>>> should update');
-      setValue(pValue.split(''));
-    }
+    if (pValue !== value.join('')) setValue(pValue.split(''));
   }, [pValue]);
 
   return (
