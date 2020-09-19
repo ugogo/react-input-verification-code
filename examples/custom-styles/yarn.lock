@@ -8527,10 +8527,10 @@ react-error-overlay@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
-react-input-verification-code@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/react-input-verification-code/-/react-input-verification-code-0.6.2.tgz#2b221a6d2d2e9ea5cc8496d25a07b03029d38250"
-  integrity sha512-VHUhJNEmnfUomxTm395yQscQx13eRvma3sJyoJQDGt3/eaXKD63IY59eiu71RiCwemo5qxlMlR+7UyJIWF828w==
+react-input-verification-code@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/react-input-verification-code/-/react-input-verification-code-0.6.3.tgz#119a6bb18a51a4374ba9587f4f89713db80df60d"
+  integrity sha512-NZVg3mUvXnremXpxgoiFXBlINkygofHZAb9mrI1nsiye/3IhWXqVGCzbVv+4xaDbMtmvEar0Yp/Ujfm8Bqj74w==
 
 react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
