@@ -20,11 +20,13 @@ const ReactInputVerificationCode = ({
   length = 4,
   onChange,
   placeholder = '·',
-  value: initialValue,
+  value: pValue,
 }: Props) => {
+  const emptyValue = new Array(length).fill(placeholder);
+
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
-    initialValue ? initialValue.split('') : new Array(length).fill(placeholder)
+    pValue ? pValue.split('') : emptyValue
   );
 
   const codeInputRef = React.createRef<HTMLInputElement>();
@@ -96,11 +98,13 @@ const ReactInputVerificationCode = ({
     setActiveIndex(-1);
   };
 
+  // handle mobile autocompletion
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: changeValue } = e.target;
     const isCode = isCodeRegex.test(changeValue);
 
     if (!isCode) return;
+
     setValue(changeValue.split(''));
     blurItem(activeIndex);
   };
@@ -113,6 +117,7 @@ const ReactInputVerificationCode = ({
     setActiveIndex(-1);
   };
 
+  // handle pasting
   React.useEffect(() => {
     const codeInput = codeInputRef.current;
     if (!codeInput) return;
@@ -134,6 +139,19 @@ const ReactInputVerificationCode = ({
   React.useEffect(() => {
     onChange(value.join(''));
   }, [value]);
+
+  React.useEffect(() => {
+    if (typeof pValue !== 'string') return;
+
+    // avoid infinite loop
+    if (pValue === '' && value.join('') === emptyValue.join('')) return;
+
+    // keep internal and external states in sync
+    if (pValue !== value.join('')) {
+      console.log('>>> should update');
+      setValue(pValue.split(''));
+    }
+  }, [pValue]);
 
   return (
     <React.Fragment>
