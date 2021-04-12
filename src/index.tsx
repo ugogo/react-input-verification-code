@@ -11,7 +11,8 @@ const KEY_CODE = {
 
 type Props = {
   length?: number;
-  onChange: (data: string) => any;
+  onChange?: (data: string) => any;
+  onCompleted?: (data: string) => any;
   placeholder?: string;
   value?: string;
 };
@@ -19,6 +20,7 @@ type Props = {
 const ReactInputVerificationCode = ({
   length = 4,
   onChange,
+  onCompleted,
   placeholder = '·',
   value: pValue,
 }: Props) => {
@@ -137,7 +139,15 @@ const ReactInputVerificationCode = ({
   }, []);
 
   React.useEffect(() => {
-    onChange(value.join(''));
+    const stringValue = value.join('')
+
+    if (typeof onChange === "function") {
+      onChange(stringValue);
+    }
+
+    if (!stringValue.includes(placeholder) && typeof onCompleted === "function") {
+      onCompleted(stringValue)
+    }
   }, [value]);
 
   React.useEffect(() => {
