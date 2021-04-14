@@ -11,14 +11,16 @@ const KEY_CODE = {
 
 type Props = {
   length?: number;
-  onChange: (data: string) => any;
+  onChange?: (data: string) => any;
+  onCompleted?: (data: string) => any;
   placeholder?: string;
   value?: string;
 };
 
 const ReactInputVerificationCode = ({
   length = 4,
-  onChange,
+  onChange = () => {},
+  onCompleted = () => {},
   placeholder = '·',
   value: pValue,
 }: Props) => {
@@ -137,7 +139,11 @@ const ReactInputVerificationCode = ({
   }, []);
 
   React.useEffect(() => {
-    onChange(value.join(''));
+    const stringValue = value.join('');
+    const isCompleted = !stringValue.includes(placeholder);
+
+    if (isCompleted) onCompleted(stringValue);
+    onChange(stringValue);
   }, [value]);
 
   React.useEffect(() => {
