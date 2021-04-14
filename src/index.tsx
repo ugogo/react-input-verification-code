@@ -19,8 +19,8 @@ type Props = {
 
 const ReactInputVerificationCode = ({
   length = 4,
-  onChange,
-  onCompleted,
+  onChange = () => {},
+  onCompleted = () => {},
   placeholder = '·',
   value: pValue,
 }: Props) => {
@@ -141,11 +141,9 @@ const ReactInputVerificationCode = ({
   React.useEffect(() => {
     const stringValue = value.join('')
 
-    if (typeof onChange === "function") {
-      onChange(stringValue);
-    }
+    onChange(stringValue);
 
-    if (!stringValue.includes(placeholder) && typeof onCompleted === "function") {
+    if (!stringValue.includes(placeholder)) {
       onCompleted(stringValue)
     }
   }, [value]);
