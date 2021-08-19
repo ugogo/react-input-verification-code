@@ -11,15 +11,9 @@ A verification code input, autocompletion friendly
 
 ## Examples
 
-- Basic
-  - [CodeSandbox](https://codesandbox.io/s/basic-6ejdp)
-  - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/basic/src/index.tsx)
-- Controllable
-  - [CodeSandbox](https://codesandbox.io/s/controllable-32dfy)
-  - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/controllable/src/index.tsx)
-- Custom Styles
-  - [CodeSandbox](https://codesandbox.io/s/custom-styles-bw8s4)
-  - [Source](https://github.com/ugogo/react-input-verification-code/tree/master/examples/custom-styles/src/index.tsx)
+- [Basic](https://codesandbox.io/s/basic-6ejdp)
+- [Controllable](https://codesandbox.io/s/controllable-32dfy)
+- [Custom Styles](https://codesandbox.io/s/custom-styles-bw8s4)
 
 ## Install
 
