@@ -5,6 +5,6 @@ import ReactInputVerificationCode from 'react-input-verification-code';
 import './index.css';
 
 ReactDOM.render(
-  <ReactInputVerificationCode onChange={console.log} />,
+  <ReactInputVerificationCode autoFocus onChange={console.log} />,
   document.getElementById('root')
 );

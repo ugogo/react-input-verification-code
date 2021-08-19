@@ -10,6 +10,7 @@ const KEY_CODE = {
 };
 
 type Props = {
+  autoFocus?: boolean;
   length?: number;
   onChange?: (data: string) => any;
   onCompleted?: (data: string) => any;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const ReactInputVerificationCode = ({
+  autoFocus = false,
   length = 4,
   onChange = () => {},
   onCompleted = () => {},
@@ -118,6 +120,13 @@ const ReactInputVerificationCode = ({
     blurItem(activeIndex);
     setActiveIndex(-1);
   };
+
+  // autoFocus
+  React.useEffect(() => {
+    if (autoFocus && itemsRef[0].current) {
+      itemsRef[0].current.focus();
+    }
+  }, []);
 
   // handle pasting
   React.useEffect(() => {

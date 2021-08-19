@@ -46,12 +46,13 @@ export default function App() {
 
 ### Props
 
-| Key         | Type       | Default | Required | Description                                               |
-| ----------- | ---------- | ------- | -------- | --------------------------------------------------------- |
-| length      | `number`   | `4`     | false    | How many items will be rendered                           |
-| onChange    | `function` |         | true     | Function called when the value changes                    |
-| placeholder | `string`   | `·`     | false    | String rendered in each item when no value has been typed |
-| value       | `string`   |         | false    | Control internal input value                              |
+| Key         | Type       | Default    | Required | Description                                               |
+| ----------- | ---------- | ---------- | -------- | --------------------------------------------------------- |
+| autoFocus   | `boolean`  | false      | false    | Focus on render                                           |
+| length      | `number`   | `4`        | false    | How many items will be rendered                           |
+| onChange    | `function` | `() => {}` | true     | Function called when the value changes                    |
+| placeholder | `string`   | `·`        | false    | String rendered in each item when no value has been typed |
+| value       | `string`   | `() => {}` | false    | Control internal input value                              |
 
 ### CSS Properties
 
