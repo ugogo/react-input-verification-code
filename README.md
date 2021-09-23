@@ -44,7 +44,8 @@ export default function App() {
 | ----------- | ---------- | ---------- | -------- | --------------------------------------------------------- |
 | autoFocus   | `boolean`  | false      | false    | Focus on render                                           |
 | length      | `number`   | `4`        | false    | How many items will be rendered                           |
-| onChange    | `function` | `() => {}` | true     | Function called when the value changes                    |
+| onChange    | `function` | `() => {}` | false     | Function called when the value changes                    |
+| onCompleted | `function` | `() => {}` | false    | Function called when the code is completed                |
 | placeholder | `string`   | `·`        | false    | String rendered in each item when no value has been typed |
 | value       | `string`   | `() => {}` | false    | Control internal input value                              |
 

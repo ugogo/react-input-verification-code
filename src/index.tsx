@@ -12,8 +12,8 @@ const KEY_CODE = {
 type Props = {
   autoFocus?: boolean;
   length?: number;
-  onChange?: (data: string) => any;
-  onCompleted?: (data: string) => any;
+  onChange?: (data: string) => void;
+  onCompleted?: (data: string) => void;
   placeholder?: string;
   value?: string;
 };
