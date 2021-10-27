@@ -149,11 +149,11 @@ const ReactInputVerificationCode = ({
 
   React.useEffect(() => {
     const stringValue = value.join('');
-    const isCompleted = !stringValue.includes(placeholder);
+    const isCompleted = stringValue.length === length;
 
     if (isCompleted) onCompleted(stringValue);
     onChange(stringValue);
-  }, [value]);
+  }, [value, length]);
 
   React.useEffect(() => {
     if (typeof pValue !== 'string') return;
