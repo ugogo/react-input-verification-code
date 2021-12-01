@@ -206,8 +206,8 @@ const ReactInputVerificationCode = ({
             role='button'
             tabIndex={0}
             className={`ReactInputVerificationCode__item ${
-              i === activeIndex ? 'is-active' : ''
-            }`}
+              value[i] !== placeholder ? 'is-filled' : ''
+            } ${i === activeIndex ? 'is-active' : ''} `}
             onFocus={onItemFocus(i)}
           >
             {value[i] || placeholder}
