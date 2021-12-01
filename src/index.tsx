@@ -140,7 +140,7 @@ const ReactInputVerificationCode = ({
       if (!pastedString) return;
 
       const isNumber = !Number.isNaN(+pastedString);
-      if (isNumber) setValue(pastedString.split(''));
+      if (isNumber) setValue(pastedString.split('').slice(0, length));
     };
 
     codeInput.addEventListener('paste', onPaste);
