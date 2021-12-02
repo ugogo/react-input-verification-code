@@ -16,6 +16,7 @@ type Props = {
   onCompleted?: (data: string) => void;
   placeholder?: string;
   value?: string;
+  dataCy?: string;
 };
 
 const ReactInputVerificationCode = ({
@@ -25,6 +26,7 @@ const ReactInputVerificationCode = ({
   onCompleted = () => {},
   placeholder = '·',
   value: pValue,
+  dataCy = 'verification-code'
 }: Props) => {
   const emptyValue = new Array(length).fill(placeholder);
 
@@ -197,6 +199,7 @@ const ReactInputVerificationCode = ({
           onBlur={onInputBlur}
           // needed for styling
           activeIndex={activeIndex}
+          data-cy={`${dataCy}-otc-input`}
         />
 
         {itemsRef.map((ref, i) => (
@@ -209,6 +212,7 @@ const ReactInputVerificationCode = ({
               i === activeIndex ? 'is-active' : ''
             }`}
             onFocus={onItemFocus(i)}
+            data-cy={`${dataCy}-item`}
           >
             {value[i] || placeholder}
           </Item>
