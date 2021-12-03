@@ -212,7 +212,7 @@ const ReactInputVerificationCode = ({
               i === activeIndex ? 'is-active' : ''
             }`}
             onFocus={onItemFocus(i)}
-            data-cy={`${dataCy}-item`}
+            data-cy={`${dataCy}-${i}-item`}
           >
             {value[i] || placeholder}
           </Item>
