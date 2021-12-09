@@ -9,11 +9,6 @@ const KEY_CODE = {
   DELETE: 46,
 };
 
-enum InputType {
-  TEXT = 'text',
-  PASSWORD = 'password'
-}
-
 type Props = {
   autoFocus?: boolean;
   length?: number;
@@ -22,7 +17,8 @@ type Props = {
   placeholder?: string;
   value?: string;
   dataCy?: string;
-  type?: InputType;
+  type?: 'text' | 'password';
+  passwordMask?: string;
 };
 
 const ReactInputVerificationCode = ({
@@ -33,7 +29,8 @@ const ReactInputVerificationCode = ({
   placeholder = '·',
   value: pValue,
   dataCy = 'verification-code',
-  type = InputType.TEXT,
+  type = 'text',
+  passwordMask = '•'
 }: Props) => {
   const emptyValue = new Array(length).fill(placeholder);
 
@@ -174,12 +171,10 @@ const ReactInputVerificationCode = ({
     if (pValue !== value.join('')) setValue(pValue.split(''));
   }, [pValue]);
 
-
-  const renderItemValue = (value: string) => {
-    if (!value) return placeholder;
-
-    return type === InputType.PASSWORD ? '●' : value;
-  }
+  const renderItemText = (itemValue: string) => {
+    if (itemValue === placeholder) return placeholder;
+    return type === 'password' ? passwordMask : itemValue;
+  };
 
   return (
     <React.Fragment>
@@ -228,7 +223,7 @@ const ReactInputVerificationCode = ({
             onFocus={onItemFocus(i)}
             data-cy={`${dataCy}-${i}-item`}
           >
-            {renderItemValue(value[i])}
+            {renderItemText(value[i])}
           </Item>
         ))}
       </Container>
