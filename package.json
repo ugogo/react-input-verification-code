@@ -35,7 +35,8 @@
     "test:lint": "eslint \"./src/**/*.+(ts|tsx)\"",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "release": "npm run test && npm run prepare && dotenv release-it"
+    "release": "npm run test && npm run prepare && dotenv release-it",
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "peerDependencies": {
     "react": "^16.0.0"

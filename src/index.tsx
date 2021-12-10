@@ -30,7 +30,7 @@ const ReactInputVerificationCode = ({
   value: pValue,
   dataCy = 'verification-code',
   type = 'text',
-  passwordMask = '•'
+  passwordMask = '•',
 }: Props) => {
   const emptyValue = new Array(length).fill(placeholder);
 
