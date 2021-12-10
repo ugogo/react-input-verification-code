@@ -17,6 +17,8 @@ type Props = {
   placeholder?: string;
   value?: string;
   dataCy?: string;
+  type?: 'text' | 'password';
+  passwordMask?: string;
 };
 
 const ReactInputVerificationCode = ({
@@ -26,7 +28,9 @@ const ReactInputVerificationCode = ({
   onCompleted = () => {},
   placeholder = '·',
   value: pValue,
-  dataCy = 'verification-code'
+  dataCy = 'verification-code',
+  type = 'text',
+  passwordMask = '•'
 }: Props) => {
   const emptyValue = new Array(length).fill(placeholder);
 
@@ -167,6 +171,11 @@ const ReactInputVerificationCode = ({
     if (pValue !== value.join('')) setValue(pValue.split(''));
   }, [pValue]);
 
+  const renderItemText = (itemValue: string) => {
+    if (itemValue === placeholder) return placeholder;
+    return type === 'password' ? passwordMask : itemValue;
+  };
+
   return (
     <React.Fragment>
       <Global
@@ -214,7 +223,7 @@ const ReactInputVerificationCode = ({
             onFocus={onItemFocus(i)}
             data-cy={`${dataCy}-${i}-item`}
           >
-            {value[i] || placeholder}
+            {renderItemText(value[i])}
           </Item>
         ))}
       </Container>

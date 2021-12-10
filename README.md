@@ -48,6 +48,8 @@ export default function App() {
 | onCompleted | `function` | `() => {}` | false    | Function called when the code is completed                |
 | placeholder | `string`   | `·`        | false    | String rendered in each item when no value has been typed |
 | value       | `string`   | `() => {}` | false    | Control internal input value                              |
+| type        | `text` or `password` | `text`     | false    | Display the item value or a password mask       |
+| passwordMask | `string` | `•`    | false    | Password mask       |
 
 ### CSS Properties
 
