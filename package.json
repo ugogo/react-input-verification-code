@@ -39,7 +39,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": ">=16.0.0"
   },
   "devDependencies": {
     "@emotion/core": "^10.0.28",
