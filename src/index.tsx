@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Global, css } from '@emotion/react';
 import * as S from './styles';
 
 const KEY_CODE = {
@@ -178,15 +177,7 @@ const ReactInputVerificationCode = ({
 
   return (
     <React.Fragment>
-      <Global
-        styles={css`
-          :root {
-            --ReactInputVerificationCode-itemWidth: 4.5rem;
-            --ReactInputVerificationCode-itemHeight: 5rem;
-            --ReactInputVerificationCode-itemSpacing: 1rem;
-          }
-        `}
-      />
+      <S.GlobalStyle />
 
       <S.Container
         className='ReactInputVerificationCode__container'

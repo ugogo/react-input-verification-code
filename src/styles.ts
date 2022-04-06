@@ -1,4 +1,12 @@
-import styled from '@emotion/styled';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  :root {
+    --ReactInputVerificationCode-itemWidth: 4.5rem;
+    --ReactInputVerificationCode-itemHeight: 5rem;
+    --ReactInputVerificationCode-itemSpacing: 1rem;
+  }
+`;
 
 interface ContainerProps {
   itemsCount: number;
