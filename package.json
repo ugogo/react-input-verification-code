@@ -1,6 +1,6 @@
 {
   "name": "react-input-verification-code",
-  "version": "1.0.0-1",
+  "version": "1.0.0",
   "description": "A verification code input, autocompletion friendly",
   "author": "ugogo",
   "license": "MIT",
