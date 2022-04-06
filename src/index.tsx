@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Global, css } from '@emotion/core';
-import { Container, Input, Item } from './styles';
+import { Global, css } from '@emotion/react';
+import * as S from './styles';
 
 const KEY_CODE = {
   BACKSPACE: 8,
@@ -9,7 +9,7 @@ const KEY_CODE = {
   DELETE: 46,
 };
 
-type Props = {
+export interface ReactInputVerificationCodeProps {
   autoFocus?: boolean;
   length?: number;
   onChange?: (data: string) => void;
@@ -19,7 +19,7 @@ type Props = {
   dataCy?: string;
   type?: 'text' | 'password';
   passwordMask?: string;
-};
+}
 
 const ReactInputVerificationCode = ({
   autoFocus = false,
@@ -31,7 +31,7 @@ const ReactInputVerificationCode = ({
   dataCy = 'verification-code',
   type = 'text',
   passwordMask = '•',
-}: Props) => {
+}: ReactInputVerificationCodeProps) => {
   const emptyValue = new Array(length).fill(placeholder);
 
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
@@ -188,12 +188,12 @@ const ReactInputVerificationCode = ({
         `}
       />
 
-      <Container
+      <S.Container
         className='ReactInputVerificationCode__container'
         // needed for styling
         itemsCount={length}
       >
-        <Input
+        <S.Input
           ref={codeInputRef}
           className='ReactInputVerificationCode__input'
           autoComplete='one-time-code'
@@ -212,7 +212,7 @@ const ReactInputVerificationCode = ({
         />
 
         {itemsRef.map((ref, i) => (
-          <Item
+          <S.Item
             key={i}
             ref={ref}
             role='button'
@@ -224,9 +224,9 @@ const ReactInputVerificationCode = ({
             data-cy={`${dataCy}-${i}-item`}
           >
             {renderItemText(value[i])}
-          </Item>
+          </S.Item>
         ))}
-      </Container>
+      </S.Container>
     </React.Fragment>
   );
 };

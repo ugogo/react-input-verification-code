@@ -14,15 +14,9 @@
     "@types/react-dom": "link:../node_modules/@types/react-dom",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
+    "react-input-verification-code": "link:..",
     "react-scripts": "link:../node_modules/react-scripts",
-    "typescript": "link:../node_modules/typescript",
-    "react-input-verification-code": "link:.."
-  },
-  "devDependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "typescript": "link:../node_modules/typescript"
   },
   "browserslist": {
     "production": [

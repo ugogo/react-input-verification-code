@@ -1,35 +1,36 @@
 import styled from '@emotion/styled';
 
-type ContainerProps = { itemsCount: number };
-export const Container = styled.div`
+interface ContainerProps {
+  itemsCount: number;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   position: relative;
   justify-content: space-between;
-  width: ${(props: ContainerProps) => `
-    calc(var(--ReactInputVerificationCode-itemWidth) * ${props.itemsCount}
-    + var(--ReactInputVerificationCode-itemSpacing)
-    * (${props.itemsCount} - 1)
-  `}
-  );
+  width: ${({ itemsCount }) =>
+    `calc(
+      var(--ReactInputVerificationCode-itemWidth) * ${itemsCount}
+      + var(--ReactInputVerificationCode-itemSpacing) * (${itemsCount} - 1)
+    )`};
 `;
 
-// input
-
-type InputProps = {
+interface InputProps {
   activeIndex: number;
-};
+}
 
-export const Input = styled.input`
+export const Input = styled.input<InputProps>`
   position: absolute;
   top: 0;
-  left: ${(props: InputProps) =>
-    `calc(${props.activeIndex} * var(--ReactInputVerificationCode-itemWidth) + var(--ReactInputVerificationCode-itemSpacing) * ${props.activeIndex})`};
+  left: ${({ activeIndex }) =>
+    `calc(
+      var(--ReactInputVerificationCode-itemWidth) * ${activeIndex}
+      + var(--ReactInputVerificationCode-itemSpacing) * ${activeIndex}
+    )`};
   opacity: 0;
   width: var(--ReactInputVerificationCode-itemWidth);
   height: var(--ReactInputVerificationCode-itemHeight);
 `;
-
-// item
 
 export const Item = styled.div`
   width: var(--ReactInputVerificationCode-itemWidth);
