@@ -36,7 +36,8 @@
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "release": "npm run test && npm run prepare && dotenv release-it",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "format": "prettier --write {src,playground}"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
