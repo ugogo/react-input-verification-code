@@ -23,8 +23,8 @@ export interface ReactInputVerificationCodeProps {
 const ReactInputVerificationCode = ({
   autoFocus = false,
   length = 4,
-  onChange = () => { },
-  onCompleted = () => { },
+  onChange = () => {},
+  onCompleted = () => {},
   placeholder = '·',
   value: pValue,
   dataCy = 'verification-code',
@@ -156,7 +156,8 @@ const ReactInputVerificationCode = ({
     const stringValue = value.join('');
     const isCompleted = stringValue.length === length;
 
-    if (isCompleted && stringValue !== emptyValue.join('')) onCompleted(stringValue);
+    if (isCompleted && stringValue !== emptyValue.join(''))
+      onCompleted(stringValue);
     onChange(stringValue);
   }, [value, length]);
 
@@ -208,8 +209,9 @@ const ReactInputVerificationCode = ({
             ref={ref}
             role='button'
             tabIndex={0}
-            className={`ReactInputVerificationCode__item ${value[i] !== placeholder ? 'is-filled' : ''
-              } ${i === activeIndex ? 'is-active' : ''}`}
+            className={`ReactInputVerificationCode__item ${
+              value[i] !== placeholder ? 'is-filled' : ''
+            } ${i === activeIndex ? 'is-active' : ''}`}
             onFocus={onItemFocus(i)}
             data-cy={`${dataCy}-${i}-item`}
           >

@@ -37,7 +37,7 @@
     "test:watch": "react-scripts test --env=jsdom",
     "release": "npm run test && npm run prepare && dotenv release-it",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "format": "prettier --write {src,playground}",
+    "format": "prettier --write {src,playground}/**/*.{ts,tsx}",
     "format:check": "prettier --check {src,playground}/**/*.{ts,tsx}"
   },
   "peerDependencies": {
