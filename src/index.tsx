@@ -156,7 +156,8 @@ const ReactInputVerificationCode = ({
     const stringValue = value.join('');
     const isCompleted = stringValue.length === length;
 
-    if (isCompleted) onCompleted(stringValue);
+    if (isCompleted && stringValue !== emptyValue.join(''))
+      onCompleted(stringValue);
     onChange(stringValue);
   }, [value, length]);
 
