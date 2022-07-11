@@ -144,7 +144,7 @@ const ReactInputVerificationCode = ({
       const pastedString = e.clipboardData?.getData('text');
       if (!pastedString) return;
 
-      const isNumber = !Number.isNaN(+pastedString);
+      const isNumber = new RegExp(/^\d+$/).test(pastedString);
       if (isNumber) setValue(pastedString.split('').slice(0, length));
     };
 
