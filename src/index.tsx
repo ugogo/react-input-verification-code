@@ -18,6 +18,7 @@ export interface ReactInputVerificationCodeProps {
   dataCy?: string;
   type?: 'text' | 'password';
   passwordMask?: string;
+  inputMode?: 'text' | 'decimal';
 }
 
 const ReactInputVerificationCode = ({
@@ -30,9 +31,9 @@ const ReactInputVerificationCode = ({
   dataCy = 'verification-code',
   type = 'text',
   passwordMask = '•',
+  inputMode = 'decimal',
 }: ReactInputVerificationCodeProps) => {
   const emptyValue = new Array(length).fill(placeholder);
-
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
   const [value, setValue] = React.useState<string[]>(
     pValue ? pValue.split('') : emptyValue
@@ -45,12 +46,11 @@ const ReactInputVerificationCode = ({
     [length]
   );
 
-  const isCodeRegex = new RegExp(`^[0-9]{${length}}$`);
+  const isCodeRegex = new RegExp(`^[A-Za-z0-9_.]{${length}}+$`);
 
   const getItem = (index: number) => itemsRef[index]?.current;
   const focusItem = (index: number): void => getItem(index)?.focus();
   const blurItem = (index: number): void => getItem(index)?.blur();
-
   const onItemFocus = (index: number) => () => {
     setActiveIndex(index);
     if (codeInputRef.current) codeInputRef.current.focus();
@@ -144,8 +144,8 @@ const ReactInputVerificationCode = ({
       const pastedString = e.clipboardData?.getData('text');
       if (!pastedString) return;
 
-      const isNumber = /^\d+$/.test(pastedString);
-      if (isNumber) setValue(pastedString.split('').slice(0, length));
+      const isCode = isCodeRegex.test(pastedString);
+      if (isCode) setValue(pastedString.split('').slice(0, length));
     };
 
     codeInput.addEventListener('paste', onPaste);
@@ -190,7 +190,7 @@ const ReactInputVerificationCode = ({
           className='ReactInputVerificationCode__input'
           autoComplete='one-time-code'
           type='text'
-          inputMode='decimal'
+          inputMode={inputMode}
           id='one-time-code'
           // use onKeyUp rather than onChange for a better control
           // onChange is still needed to handle the autocompletion
