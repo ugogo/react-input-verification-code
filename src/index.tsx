@@ -18,7 +18,7 @@ export interface ReactInputVerificationCodeProps {
   dataCy?: string;
   type?: 'text' | 'password';
   passwordMask?: string;
-  inputMode?: 'text' | 'decimal';
+  inputMode?: 'text' | 'numeric';
 }
 
 const ReactInputVerificationCode = ({
@@ -31,7 +31,7 @@ const ReactInputVerificationCode = ({
   dataCy = 'verification-code',
   type = 'text',
   passwordMask = '•',
-  inputMode = 'decimal',
+  inputMode = 'numeric',
 }: ReactInputVerificationCodeProps) => {
   const emptyValue = new Array(length).fill(placeholder);
   const [activeIndex, setActiveIndex] = React.useState<number>(-1);
@@ -45,8 +45,9 @@ const ReactInputVerificationCode = ({
       new Array(length).fill(null).map(() => React.createRef<HTMLDivElement>()),
     [length]
   );
-
-  const isCodeRegex = new RegExp(`^[A-Za-z0-9_.]{${length}}+$`);
+  const regexString =
+    inputMode === 'text' ? `^[A-Za-z0-9_.]{${length}}$` : `^[0-9]{${length}}$`;
+  const isCodeRegex = new RegExp(regexString);
 
   const getItem = (index: number) => itemsRef[index]?.current;
   const focusItem = (index: number): void => getItem(index)?.focus();
@@ -87,7 +88,6 @@ const ReactInputVerificationCode = ({
 
     // if the key pressed is not a number
     // don't do anything
-    if (Number.isNaN(+key)) return;
 
     // reset the current value
     // and set the new one
