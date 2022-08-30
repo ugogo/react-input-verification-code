@@ -88,6 +88,7 @@ const ReactInputVerificationCode = ({
 
     // if the key pressed is not a number
     // don't do anything
+    if (inputMode === 'numeric' && Number.isNaN(+key)) return;
 
     // reset the current value
     // and set the new one
