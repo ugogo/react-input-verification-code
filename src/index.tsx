@@ -98,13 +98,6 @@ const ReactInputVerificationCode = ({
 
     // if the key pressed is not a number
     // don't do anything
-    if (
-      keyCode === KEY_CODE.CTRL ||
-      keyCode === KEY_CODE.ALT ||
-      keyCode === KEY_CODE.COMMAND ||
-      keyCode === KEY_CODE.SHIFT
-    )
-      return;
     // reset the current value
     // and set the new one
     if (codeInput) codeInput.value = '';
