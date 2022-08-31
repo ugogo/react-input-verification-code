@@ -93,5 +93,7 @@
     "input",
     "autocompletion"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "react-input-verification-code": "https://github.com/GilAkivaWebiya/react-verification-code-input"
+  }
 }

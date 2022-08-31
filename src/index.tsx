@@ -82,13 +82,6 @@ const ReactInputVerificationCode = ({
     // keep items focus in sync
     onItemFocus(activeIndex);
 
-    if (
-      keyCode === KEY_CODE.CTRL ||
-      keyCode === KEY_CODE.ALT ||
-      keyCode === KEY_CODE.COMMAND ||
-      keyCode === KEY_CODE.SHIFT
-    )
-      return;
     if (isDeleting) {
       // on delete, replace the current value
       // and focus on the previous item
@@ -105,6 +98,13 @@ const ReactInputVerificationCode = ({
 
     // if the key pressed is not a number
     // don't do anything
+    if (
+      keyCode === KEY_CODE.CTRL ||
+      keyCode === KEY_CODE.ALT ||
+      keyCode === KEY_CODE.COMMAND ||
+      keyCode === KEY_CODE.SHIFT
+    )
+      return;
     // reset the current value
     // and set the new one
     if (codeInput) codeInput.value = '';
