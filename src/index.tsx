@@ -6,10 +6,6 @@ const KEY_CODE = {
   ARROW_LEFT: 37,
   ARROW_RIGHT: 39,
   DELETE: 46,
-  SHIFT: 16,
-  COMMAND: 91 | 93,
-  CTRL: 17,
-  ALT: 18,
 };
 
 export interface ReactInputVerificationCodeProps {
@@ -82,9 +78,9 @@ const ReactInputVerificationCode = ({
     // keep items focus in sync
     onItemFocus(activeIndex);
 
+    // on delete, replace the current value
+    // and focus on the previous item
     if (isDeleting) {
-      // on delete, replace the current value
-      // and focus on the previous item
       newValue[activeIndex] = placeholder;
       setValue(newValue);
 
@@ -180,6 +176,7 @@ const ReactInputVerificationCode = ({
   return (
     <React.Fragment>
       <S.GlobalStyle />
+
       <S.Container
         className='ReactInputVerificationCode__container'
         // needed for styling
