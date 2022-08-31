@@ -18,7 +18,16 @@ export interface ReactInputVerificationCodeProps {
   dataCy?: string;
   type?: 'text' | 'password';
   passwordMask?: string;
-  inputMode?: 'text' | 'numeric';
+  inputMode?:
+    | 'none'
+    | 'text'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'numeric'
+    | 'decimal'
+    | 'search'
+    | undefined;
 }
 
 const ReactInputVerificationCode = ({
