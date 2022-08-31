@@ -45,8 +45,7 @@ const ReactInputVerificationCode = ({
       new Array(length).fill(null).map(() => React.createRef<HTMLDivElement>()),
     [length]
   );
-  const regexString =
-    inputMode === 'text' ? `^[A-Za-z0-9_.]{${length}}$` : `^[0-9]{${length}}$`;
+  const regexString = `^[0-9]{${length}}$`;
   const isCodeRegex = new RegExp(regexString);
 
   const getItem = (index: number) => itemsRef[index]?.current;
@@ -111,10 +110,10 @@ const ReactInputVerificationCode = ({
   // handle mobile autocompletion
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: changeValue } = e.target;
-    const isCode = isCodeRegex.test(changeValue);
-
-    if (!isCode) return;
-
+    if (inputMode === 'numeric') {
+      const isCode = isCodeRegex.test(changeValue);
+      if (!isCode) return;
+    }
     setValue(changeValue.split(''));
     blurItem(activeIndex);
   };
