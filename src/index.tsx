@@ -45,8 +45,6 @@ const ReactInputVerificationCode = ({
       new Array(length).fill(null).map(() => React.createRef<HTMLDivElement>()),
     [length]
   );
-  const regexString = `^[0-9]{${length}}$`;
-  const isCodeRegex = new RegExp(regexString);
 
   const getItem = (index: number) => itemsRef[index]?.current;
   const focusItem = (index: number): void => getItem(index)?.focus();
@@ -87,8 +85,6 @@ const ReactInputVerificationCode = ({
 
     // if the key pressed is not a number
     // don't do anything
-    if (inputMode === 'numeric' && Number.isNaN(+key)) return;
-
     // reset the current value
     // and set the new one
     if (codeInput) codeInput.value = '';
@@ -110,10 +106,6 @@ const ReactInputVerificationCode = ({
   // handle mobile autocompletion
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: changeValue } = e.target;
-    if (inputMode === 'numeric') {
-      const isCode = isCodeRegex.test(changeValue);
-      if (!isCode) return;
-    }
     setValue(changeValue.split(''));
     blurItem(activeIndex);
   };
@@ -143,9 +135,7 @@ const ReactInputVerificationCode = ({
 
       const pastedString = e.clipboardData?.getData('text');
       if (!pastedString) return;
-
-      const isCode = isCodeRegex.test(pastedString);
-      if (isCode) setValue(pastedString.split('').slice(0, length));
+      setValue(pastedString.split('').slice(0, length));
     };
 
     codeInput.addEventListener('paste', onPaste);
