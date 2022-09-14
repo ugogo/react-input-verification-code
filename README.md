@@ -23,6 +23,7 @@ A verification code input, autocompletion friendly
   "styled-components": ">=5.0.0"
 }
 ```
+
 ## Install
 
 ```bash
@@ -48,16 +49,15 @@ export default function App() {
 
 ### Props
 
-| Key         | Type       | Default    | Required | Description                                               |
-| ----------- | ---------- | ---------- | -------- | --------------------------------------------------------- |
-| autoFocus   | `boolean`  | false      | false    | Focus on render                                           |
-| length      | `number`   | `4`        | false    | How many items will be rendered                           |
-| onChange    | `function` | `() => {}` | false     | Function called when the value changes                    |
-| onCompleted | `function` | `() => {}` | false    | Function called when the code is completed                |
-| placeholder | `string`   | `·`        | false    | String rendered in each item when no value has been typed |
-| value       | `string`   | `() => {}` | false    | Control internal input value                              |
-| type        | `text` or `password` | `text`     | false    | Display the item value or a password mask       |
-| passwordMask | `string` | `•`    | false    | Password mask       |
+| Key         | Type                 | Default    | Required | Description                                               |
+| ----------- | -------------------- | ---------- | -------- | --------------------------------------------------------- |
+| autoFocus   | `boolean`            | false      | false    | Focus on render                                           |
+| length      | `number`             | `4`        | false    | How many items will be rendered                           |
+| onChange    | `function`           | `() => {}` | false    | Function called when the value changes                    |
+| onCompleted | `function`           | `() => {}` | false    | Function called when the code is completed                |
+| placeholder | `string`             | `·`        | false    | String rendered in each item when no value has been typed |
+| value       | `string`             | `() => {}` | false    | Control internal input value                              |
+| type        | `text` or `password` | `text`     | false    | Display the item value or a password mask                 |
 
 ### CSS Properties
 

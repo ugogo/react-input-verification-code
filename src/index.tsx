@@ -17,7 +17,6 @@ export interface ReactInputVerificationCodeProps {
   value?: string;
   dataCy?: string;
   type?: 'text' | 'password';
-  passwordMask?: string;
 }
 
 const ReactInputVerificationCode = ({
@@ -29,7 +28,6 @@ const ReactInputVerificationCode = ({
   value: pValue,
   dataCy = 'verification-code',
   type = 'text',
-  passwordMask = '•',
 }: ReactInputVerificationCodeProps) => {
   const emptyValue = new Array(length).fill(placeholder);
 
@@ -173,7 +171,7 @@ const ReactInputVerificationCode = ({
 
   const renderItemText = (itemValue: string) => {
     if (itemValue === placeholder) return placeholder;
-    return type === 'password' ? passwordMask : itemValue;
+    return type === 'password' ? placeholder : itemValue;
   };
 
   return (
