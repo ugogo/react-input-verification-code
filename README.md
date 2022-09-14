@@ -15,14 +15,22 @@ A verification code input, autocompletion friendly
 - [Controllable](https://codesandbox.io/s/controllable-32dfy)
 - [Custom Styles](https://codesandbox.io/s/custom-styles-bw8s4)
 
+## peerDependencies
+
+```
+{
+  "react": ">=16.0.0",
+  "styled-components": ">=5.0.0"
+}
+```
 ## Install
 
 ```bash
-npm install --save react-input-verification-code
-```
-
-```bash
 yarn add react-input-verification-code
+
+# if you don't use `styled-components` in your project
+# you have to install it as well
+yarn add react-input-verification-code styled-components
 ```
 
 ## Usage
