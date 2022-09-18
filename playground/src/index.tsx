@@ -5,6 +5,10 @@ import ReactInputVerificationCode from 'react-input-verification-code';
 import './index.css';
 
 ReactDOM.render(
-  <ReactInputVerificationCode autoFocus onChange={console.log} />,
+  <ReactInputVerificationCode
+    autoFocus
+    onChange={(e) => console.log('onChange', e)}
+    onCompleted={(e) => console.log('onCompleted', e)}
+  />,
   document.getElementById('root')
 );

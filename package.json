@@ -91,6 +91,9 @@
     "pin-code",
     "authentication-code",
     "input",
-    "autocompletion"
+    "autocompletion",
+    "otp",
+    "otp-code",
+    "one-time-password"
   ]
 }
