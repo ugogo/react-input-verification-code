@@ -18,7 +18,7 @@ export interface ReactInputVerificationCodeProps {
   placeholder?: string;
   value?: string;
   dataCy?: string;
-  type?: 'text' | 'password';
+  type?: 'alphanumeric' | 'number';
 }
 
 const ReactInputVerificationCode = ({
@@ -29,8 +29,8 @@ const ReactInputVerificationCode = ({
   placeholder = '·',
   // value: pValue,
   dataCy = 'verification-code',
-}: // type = 'text',
-ReactInputVerificationCodeProps) => {
+  type = 'number',
+}: ReactInputVerificationCodeProps) => {
   const [values, setValues] = useState(new Array(length).fill(placeholder));
 
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
@@ -52,6 +52,28 @@ ReactInputVerificationCodeProps) => {
   //   setValue(changeValue.split(''));
   //   blurItem(activeIndex);
   // };
+
+  const validate = (input: string) => {
+    if (type === 'number') {
+      return /^\d$/.test(input);
+    }
+
+    if (type === 'alphanumeric') {
+      return /^[a-zA-Z0-9]$/.test(input);
+    }
+
+    return true;
+  };
+
+  const selectInputContent = (index: number) => {
+    const input = inputsRefs[index].current;
+
+    if (input) {
+      requestAnimationFrame(() => {
+        input.select();
+      });
+    }
+  };
 
   const setValue = (value: string, index: number) => {
     const nextValues = [...values];
@@ -95,7 +117,7 @@ ReactInputVerificationCodeProps) => {
 
     if (input) {
       setFocusedIndex(index);
-      input.select();
+      selectInputContent(index);
     }
   };
 
@@ -109,6 +131,15 @@ ReactInputVerificationCodeProps) => {
      * by clearing the already setted value
      */
     const value = eventValue.replace(values[index], '');
+
+    /**
+     * if the value is not valid, don't go any further
+     * and select the content of the input for a better UX
+     */
+    if (!validate(value)) {
+      selectInputContent(index);
+      return;
+    }
 
     setValue(value, index);
 
