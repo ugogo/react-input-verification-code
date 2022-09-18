@@ -1,5 +1,6 @@
 import React, {
   ChangeEvent,
+  ClipboardEvent,
   createRef,
   Fragment,
   KeyboardEvent,
@@ -31,8 +32,9 @@ const ReactInputVerificationCode = ({
   dataCy = 'verification-code',
   type = 'number',
 }: ReactInputVerificationCodeProps) => {
-  const [values, setValues] = useState(new Array(length).fill(placeholder));
+  const emptyValues = new Array(length).fill(placeholder);
 
+  const [values, setValues] = useState([...emptyValues]);
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
 
   // const codeInputRef = createRef<HTMLInputElement>();
@@ -55,11 +57,11 @@ const ReactInputVerificationCode = ({
 
   const validate = (input: string) => {
     if (type === 'number') {
-      return /^\d$/.test(input);
+      return /^\d/.test(input);
     }
 
     if (type === 'alphanumeric') {
-      return /^[a-zA-Z0-9]$/.test(input);
+      return /^[a-zA-Z0-9]/.test(input);
     }
 
     return true;
@@ -180,6 +182,38 @@ const ReactInputVerificationCode = ({
     }
   };
 
+  const onInputPaste = (
+    event: ClipboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    event.preventDefault();
+
+    const pastedValue = event.clipboardData.getData('text');
+    const nextValues = pastedValue.slice(0, length);
+
+    if (!validate(nextValues)) {
+      return;
+    }
+
+    /**
+     * generate a new array filled with placeholders
+     * map through it and replace with the pasted value when possible
+     */
+    setValues(
+      [...emptyValues].map((value, index) => nextValues[index] || value)
+    );
+
+    const isCompleted = nextValues.length === length;
+
+    if (isCompleted) {
+      onCompleted(nextValues);
+      blurInput(index);
+      return;
+    }
+
+    focusInput(nextValues.length);
+  };
+
   /**
    * autoFocus
    */
@@ -188,25 +222,6 @@ const ReactInputVerificationCode = ({
       focusInput(0);
     }
   }, [inputsRefs]);
-
-  // handle pasting
-  // useEffect(() => {
-  //   const codeInput = codeInputRef.current;
-  //   if (!codeInput) return;
-
-  //   const onPaste = (e: ClipboardEvent) => {
-  //     e.preventDefault();
-
-  //     const pastedString = e.clipboardData?.getData('text');
-  //     if (!pastedString) return;
-
-  //     const isNumber = /^\d+$/.test(pastedString);
-  //     if (isNumber) setValue(pastedString.split('').slice(0, length));
-  //   };
-
-  //   codeInput.addEventListener('paste', onPaste);
-  //   return () => codeInput.removeEventListener('paste', onPaste);
-  // }, []);
 
   return (
     <Fragment>
@@ -234,6 +249,7 @@ const ReactInputVerificationCode = ({
             onChange={(event) => onInputChange(event, i)}
             onFocus={() => onInputFocus(i)}
             onKeyDown={(event) => onInputKeyDown(event, i)}
+            onPaste={(event) => onInputPaste(event, i)}
           />
         ))}
       </S.Container>
