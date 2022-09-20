@@ -12,7 +12,11 @@ export default {
 } as ComponentMeta<typeof ReactInputVerificationCode>;
 
 const Template: ComponentStory<typeof ReactInputVerificationCode> = (args) => (
-  <ReactInputVerificationCode onChange={console.log} {...args} />
+  <ReactInputVerificationCode
+    onChange={(value) => console.log(value)}
+    onCompleted={(value) => console.log(value)}
+    {...args}
+  />
 );
 
 export const Default = Template.bind({});

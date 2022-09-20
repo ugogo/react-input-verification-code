@@ -24,8 +24,8 @@ export interface ReactInputVerificationCodeProps {
 const ReactInputVerificationCode = ({
   autoFocus = false,
   length = 4,
-  onChange = () => {},
-  onCompleted = () => {},
+  onChange = () => null,
+  onCompleted = () => null,
   placeholder = '·',
   value: defaultValue = '',
   dataCy = 'verification-code',
