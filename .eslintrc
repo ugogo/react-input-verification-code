@@ -4,7 +4,7 @@
   "parserOptions": {
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "babel-plugin-styled-components"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
