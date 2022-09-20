@@ -212,7 +212,7 @@ const ReactInputVerificationCode = ({
   }, [inputsRefs]);
 
   return (
-    <div className='ReactInputVerificationCode__container'>
+    <div className='ReactInputVerificationCode-container'>
       {/* <S.Input
           autoComplete='one-time-code'
           type='text'
@@ -224,7 +224,7 @@ const ReactInputVerificationCode = ({
         <input
           key={i}
           ref={ref}
-          className='ReactInputVerificationCode__item'
+          className='ReactInputVerificationCode-item'
           data-cy={`${dataCy}-${i}-item`}
           value={values[i]}
           onChange={(event) => onInputChange(event, i)}
