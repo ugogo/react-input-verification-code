@@ -32,15 +32,11 @@ const ReactInputVerificationCode = ({
   type = 'number',
 }: ReactInputVerificationCodeProps) => {
   /**
-   * generate a new array filled with placeholders
-   * map through it and replace with the pasted value when possible
+   * generate a new array, map through it
+   * and replace with the value when possible
    */
-  const fillValues = (value: string) => {
-    const emptyValues = new Array(length).fill(placeholder);
-    const nextValues = value.slice(0, length);
-
-    return [...emptyValues].map((value, index) => nextValues[index] || value);
-  };
+  const fillValues = (value: string) =>
+    new Array(length).fill('').map((_, index) => value[index] ?? '');
 
   const [values, setValues] = useState(fillValues(defaultValue));
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
@@ -79,7 +75,7 @@ const ReactInputVerificationCode = ({
     setValues(nextValues);
 
     const stringifiedValues = nextValues.join('');
-    const isCompleted = !stringifiedValues.includes(placeholder);
+    const isCompleted = stringifiedValues.length === length;
 
     if (isCompleted) {
       onCompleted(stringifiedValues);
@@ -165,7 +161,7 @@ const ReactInputVerificationCode = ({
        */
       event.preventDefault();
 
-      setValue(placeholder, focusedIndex);
+      setValue('', focusedIndex);
       focusInput(index - 1);
 
       return;
@@ -235,6 +231,7 @@ const ReactInputVerificationCode = ({
           onFocus={() => onInputFocus(i)}
           onKeyDown={(event) => onInputKeyDown(event, i)}
           onPaste={(event) => onInputPaste(event, i)}
+          placeholder={placeholder}
         />
       ))}
     </div>
