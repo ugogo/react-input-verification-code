@@ -26,6 +26,7 @@ export default {
     nodeResolve(),
     commonjs(),
     typescript({
+      exclude: ['**/*.stories.tsx'],
       typescript: require('typescript'),
     }),
     postCSS({
