@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["ES5", "ES2015", "ES2016", "DOM", "ESNext"],
-    "types": ["jest", "node"],
+    "types": ["vitest/globals", "node"],
     "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": false,

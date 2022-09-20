@@ -1,7 +1,7 @@
 import ReactInputVerificationCode from '.';
 
 describe('ReactInputVerificationCode', () => {
-  it('is truthy', () => {
+  test('is truthy', () => {
     expect(ReactInputVerificationCode).toBeTruthy();
   });
 });
