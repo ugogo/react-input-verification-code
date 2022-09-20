@@ -6,8 +6,7 @@ node_modules
 
 # builds
 build
-dist
-.rpt2_cache
+lib
 
 # misc
 .DS_Store

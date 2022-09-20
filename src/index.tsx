@@ -2,14 +2,13 @@ import React, {
   ChangeEvent,
   ClipboardEvent,
   createRef,
-  Fragment,
   KeyboardEvent,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 
-import * as S from './styles';
+import './index.css';
 
 export interface ReactInputVerificationCodeProps {
   autoFocus?: boolean;
@@ -23,37 +22,33 @@ export interface ReactInputVerificationCodeProps {
 }
 
 const ReactInputVerificationCode = ({
-  autoFocus = true,
+  autoFocus = false,
   length = 4,
   onChange = () => {},
   onCompleted = () => {},
   placeholder = '·',
-  // value: pValue,
+  value: defaultValue = '',
   dataCy = 'verification-code',
   type = 'number',
 }: ReactInputVerificationCodeProps) => {
-  const emptyValues = new Array(length).fill(placeholder);
+  /**
+   * generate a new array filled with placeholders
+   * map through it and replace with the pasted value when possible
+   */
+  const fillValues = (value: string) => {
+    const emptyValues = new Array(length).fill(placeholder);
+    const nextValues = value.slice(0, length);
 
-  const [values, setValues] = useState([...emptyValues]);
+    return [...emptyValues].map((value, index) => nextValues[index] || value);
+  };
+
+  const [values, setValues] = useState(fillValues(defaultValue));
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
-
-  // const codeInputRef = createRef<HTMLInputElement>();
 
   const inputsRefs = useMemo(
     () => new Array(length).fill(null).map(() => createRef<HTMLInputElement>()),
     [length]
   );
-
-  // handle mobile autocompletion
-  // const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { value: changeValue } = e.target;
-  //   const isCode = isCodeRegex.test(changeValue);
-
-  //   if (!isCode) return;
-
-  //   setValue(changeValue.split(''));
-  //   blurItem(activeIndex);
-  // };
 
   const validate = (input: string) => {
     if (type === 'number') {
@@ -157,7 +152,10 @@ const ReactInputVerificationCode = ({
     focusInput(index + 1);
   };
 
-  const onInputKeyDown = (event: KeyboardEvent, index: number) => {
+  const onInputKeyDown = (
+    event: KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const eventKey = event.key;
 
     if (eventKey === 'Backspace' || eventKey === 'Delete') {
@@ -195,13 +193,7 @@ const ReactInputVerificationCode = ({
       return;
     }
 
-    /**
-     * generate a new array filled with placeholders
-     * map through it and replace with the pasted value when possible
-     */
-    setValues(
-      [...emptyValues].map((value, index) => nextValues[index] || value)
-    );
+    setValues(fillValues(nextValues));
 
     const isCompleted = nextValues.length === length;
 
@@ -224,36 +216,28 @@ const ReactInputVerificationCode = ({
   }, [inputsRefs]);
 
   return (
-    <Fragment>
-      <S.GlobalStyle />
-
-      <S.Container className='ReactInputVerificationCode__container'>
-        {/* <S.Input
-          // ref={codeInputRef}
-          className='ReactInputVerificationCode__input'
+    <div className='ReactInputVerificationCode__container'>
+      {/* <S.Input
           autoComplete='one-time-code'
           type='text'
-          inputMode='decimal'
-          id='one-time-code'
           activeIndex={activeIndex}
           data-cy={`${dataCy}-otc-input`}
         /> */}
 
-        {inputsRefs.map((ref, i) => (
-          <S.Item
-            key={i}
-            ref={ref}
-            className='ReactInputVerificationCode__item'
-            data-cy={`${dataCy}-${i}-item`}
-            value={values[i]}
-            onChange={(event) => onInputChange(event, i)}
-            onFocus={() => onInputFocus(i)}
-            onKeyDown={(event) => onInputKeyDown(event, i)}
-            onPaste={(event) => onInputPaste(event, i)}
-          />
-        ))}
-      </S.Container>
-    </Fragment>
+      {inputsRefs.map((ref, i) => (
+        <input
+          key={i}
+          ref={ref}
+          className='ReactInputVerificationCode__item'
+          data-cy={`${dataCy}-${i}-item`}
+          value={values[i]}
+          onChange={(event) => onInputChange(event, i)}
+          onFocus={() => onInputFocus(i)}
+          onKeyDown={(event) => onInputKeyDown(event, i)}
+          onPaste={(event) => onInputPaste(event, i)}
+        />
+      ))}
+    </div>
   );
 };
 
