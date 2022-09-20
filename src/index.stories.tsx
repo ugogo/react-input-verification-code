@@ -14,6 +14,7 @@ export default {
 
 const Template: ComponentStory<typeof ReactInputVerificationCode> = (args) => (
   <ReactInputVerificationCode
+    autoFocus
     onChange={(value) => console.log(value)}
     onCompleted={(value) => console.log(value)}
     {...args}
@@ -75,6 +76,6 @@ const CustomStylesContainer = styled.div`
 
 export const CustomStyles = () => (
   <CustomStylesContainer>
-    <ReactInputVerificationCode placeholder='' />
+    <ReactInputVerificationCode autoFocus placeholder='' />
   </CustomStylesContainer>
 );
