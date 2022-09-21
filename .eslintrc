@@ -16,8 +16,7 @@
     "prettier"
   ],
   "env": {
-    "browser": true,
-    "jest": true
+    "browser": true
   },
   "rules": {
     "react/jsx-sort-props": "error",
