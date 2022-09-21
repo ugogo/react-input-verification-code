@@ -51,23 +51,29 @@ export default function App() {
 
 ### Props
 
-| Key         | Type                     | Default      | Required | Description                                        |
-| ----------- | ------------------------ | ------------ | -------- | -------------------------------------------------- |
-| autoFocus   | `boolean`                | false        | false    | Should focus on first render                       |
-| length      | `number`                 | `4`          | false    | How many inputs will be rendered                   |
-| onChange    | `function`               | `() => null` | false    | Function called when the value changes             |
-| onCompleted | `function`               | `() => null` | false    | Function called when the value is completed        |
-| placeholder | `string`                 | `·`          | false    | Inputs placeholder                                 |
-| value       | `string`                 | `""`         | false    | Default value                                      |
-| type        | `'alphanumeric, number'` | `number`     | false    | Should accepts alphanumeric values or only numbers |
+| Key         | Type                                           | Default      | Required | Description                                        |
+| ----------- | ---------------------------------------------- | ------------ | -------- | -------------------------------------------------- |
+| autoFocus   | `boolean`                                      | false        | false    | Should focus on first render                       |
+| inputProps  | `React.InputHTMLAttributes<HTMLInputElement>;` | `undefined`  | false    | Allow passing custom props into the inputs         |
+| length      | `number`                                       | `4`          | false    | How many inputs will be rendered                   |
+| onChange    | `function`                                     | `() => null` | false    | Function called when the value changes             |
+| onCompleted | `function`                                     | `() => null` | false    | Function called when the value is completed        |
+| placeholder | `string`                                       | `·`          | false    | Inputs placeholder                                 |
+| value       | `string`                                       | `""`         | false    | Default value                                      |
+| type        | `'alphanumeric, number'`                       | `number`     | false    | Should accepts alphanumeric values or only numbers |
 
 ### Custom Styles
 
 Simply override the styles using the following classnames
 
 ```css
-.ReactInputVerificationCode-container {}
-.ReactInputVerificationCode-item {}
+.ReactInputVerificationCode-container {
+  /*  */
+}
+
+.ReactInputVerificationCode-item {
+  /*  */
+}
 ```
 
 ## License

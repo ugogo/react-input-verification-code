@@ -28,6 +28,14 @@ WithDefaultValue.args = {
   value: '7890',
 };
 
+export const CustomInputProps = Template.bind({});
+CustomInputProps.args = {
+  placeholder: '',
+  inputProps: {
+    type: 'password',
+  },
+};
+
 export const CustomLength = Template.bind({});
 CustomLength.args = {
   length: 6,
@@ -36,19 +44,6 @@ CustomLength.args = {
 export const CustomPlaceholder = Template.bind({});
 CustomPlaceholder.args = {
   placeholder: '⎽',
-};
-
-export const CustomType = Template.bind({});
-CustomType.args = {
-  type: 'alphanumeric',
-};
-CustomType.argTypes = {
-  type: {
-    control: {
-      type: 'select',
-      options: ['number', 'alphanumeric'],
-    },
-  },
 };
 
 const CustomStylesContainer = styled.div`
@@ -79,3 +74,16 @@ export const CustomStyles = () => (
     <ReactInputVerificationCode autoFocus placeholder='' />
   </CustomStylesContainer>
 );
+
+export const CustomType = Template.bind({});
+CustomType.args = {
+  type: 'alphanumeric',
+};
+CustomType.argTypes = {
+  type: {
+    control: {
+      type: 'select',
+      options: ['number', 'alphanumeric'],
+    },
+  },
+};

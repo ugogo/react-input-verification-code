@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   ClipboardEvent,
   createRef,
+  InputHTMLAttributes,
   KeyboardEvent,
   useEffect,
   useMemo,
@@ -12,6 +13,7 @@ import './index.css';
 
 export interface ReactInputVerificationCodeProps {
   autoFocus?: boolean;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
   length?: number;
   onChange?: (data: string) => void;
   onCompleted?: (data: string) => void;
@@ -22,6 +24,7 @@ export interface ReactInputVerificationCodeProps {
 
 const ReactInputVerificationCode = ({
   autoFocus = false,
+  inputProps,
   length = 4,
   onChange = () => null,
   onCompleted = () => null,
@@ -222,6 +225,7 @@ const ReactInputVerificationCode = ({
           placeholder={placeholder}
           ref={ref}
           value={values[i]}
+          {...inputProps}
         />
       ))}
     </div>
