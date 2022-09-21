@@ -135,6 +135,23 @@ const ReactInputVerificationCode = ({
       return;
     }
 
+    /**
+     * otp code
+     */
+    if (value.length > 1) {
+      setValues(fillValues(eventValue));
+
+      const isCompleted = eventValue.length === length;
+
+      if (isCompleted) {
+        onCompleted(eventValue);
+        blurInput(index);
+        return;
+      }
+
+      return;
+    }
+
     setValue(value, index);
 
     /**
@@ -216,6 +233,7 @@ const ReactInputVerificationCode = ({
     <div className='ReactInputVerificationCode-container'>
       {inputsRefs.map((ref, i) => (
         <input
+          autoComplete='one-time-code'
           className='ReactInputVerificationCode-item'
           key={i}
           onChange={(event) => onInputChange(event, i)}
