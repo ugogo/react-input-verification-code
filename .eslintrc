@@ -2,7 +2,7 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.json", "rollup.config.js"]
   },
   "plugins": ["@typescript-eslint"],
   "extends": [
