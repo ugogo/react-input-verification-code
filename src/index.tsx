@@ -1,225 +1,252 @@
-import * as React from 'react';
-import * as S from './styles';
+import React, {
+  ChangeEvent,
+  ClipboardEvent,
+  createRef,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
-const KEY_CODE = {
-  BACKSPACE: 8,
-  ARROW_LEFT: 37,
-  ARROW_RIGHT: 39,
-  DELETE: 46,
-};
+import './index.css';
 
 export interface ReactInputVerificationCodeProps {
   autoFocus?: boolean;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
   length?: number;
   onChange?: (data: string) => void;
   onCompleted?: (data: string) => void;
   placeholder?: string;
+  type?: 'alphanumeric' | 'number';
   value?: string;
-  dataCy?: string;
-  type?: 'text' | 'password';
-  passwordMask?: string;
 }
 
 const ReactInputVerificationCode = ({
   autoFocus = false,
+  inputProps,
   length = 4,
-  onChange = () => {},
-  onCompleted = () => {},
+  onChange = () => null,
+  onCompleted = () => null,
   placeholder = '·',
-  value: pValue,
-  dataCy = 'verification-code',
-  type = 'text',
-  passwordMask = '•',
+  type = 'number',
+  value: defaultValue = '',
 }: ReactInputVerificationCodeProps) => {
-  const emptyValue = new Array(length).fill(placeholder);
+  /**
+   * generate a new array, map through it
+   * and replace with the value when possible
+   */
+  const fillValues = (value: string) =>
+    new Array(length).fill('').map((_, index) => value[index] ?? '');
 
-  const [activeIndex, setActiveIndex] = React.useState<number>(-1);
-  const [value, setValue] = React.useState<string[]>(
-    pValue ? pValue.split('') : emptyValue
-  );
+  const [values, setValues] = useState(fillValues(defaultValue));
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
 
-  const codeInputRef = React.createRef<HTMLInputElement>();
-  const itemsRef = React.useMemo(
-    () =>
-      new Array(length).fill(null).map(() => React.createRef<HTMLDivElement>()),
+  const inputsRefs = useMemo(
+    () => new Array(length).fill(null).map(() => createRef<HTMLInputElement>()),
     [length]
   );
 
-  const isCodeRegex = new RegExp(`^[0-9]{${length}}$`);
+  const validate = (input: string) => {
+    if (type === 'number') {
+      return /^\d/.test(input);
+    }
 
-  const getItem = (index: number) => itemsRef[index]?.current;
-  const focusItem = (index: number): void => getItem(index)?.focus();
-  const blurItem = (index: number): void => getItem(index)?.blur();
+    if (type === 'alphanumeric') {
+      return /^[a-zA-Z0-9]/.test(input);
+    }
 
-  const onItemFocus = (index: number) => () => {
-    setActiveIndex(index);
-    if (codeInputRef.current) codeInputRef.current.focus();
+    return true;
   };
 
-  const onInputKeyUp = ({ key, keyCode }: React.KeyboardEvent) => {
-    const newValue = [...value];
-    const nextIndex = activeIndex + 1;
-    const prevIndex = activeIndex - 1;
+  const selectInputContent = (index: number) => {
+    const input = inputsRefs[index].current;
 
-    const codeInput = codeInputRef.current;
-    const currentItem = getItem(activeIndex);
+    if (input) {
+      requestAnimationFrame(() => {
+        input.select();
+      });
+    }
+  };
 
-    const isLast = nextIndex === length;
-    const isDeleting =
-      keyCode === KEY_CODE.DELETE || keyCode === KEY_CODE.BACKSPACE;
+  const setValue = (value: string, index: number) => {
+    const nextValues = [...values];
+    nextValues[index] = value;
 
-    // keep items focus in sync
-    onItemFocus(activeIndex);
+    setValues(nextValues);
 
-    // on delete, replace the current value
-    // and focus on the previous item
-    if (isDeleting) {
-      newValue[activeIndex] = placeholder;
-      setValue(newValue);
+    const stringifiedValues = nextValues.join('');
+    const isCompleted = stringifiedValues.length === length;
 
-      if (activeIndex > 0) {
-        setActiveIndex(prevIndex);
-        focusItem(prevIndex);
+    if (isCompleted) {
+      onCompleted(stringifiedValues);
+      return;
+    }
+
+    onChange(stringifiedValues);
+  };
+
+  const focusInput = (index: number) => {
+    const input = inputsRefs[index]?.current;
+
+    if (input) {
+      requestAnimationFrame(() => {
+        input.focus();
+      });
+    }
+  };
+
+  const blurInput = (index: number) => {
+    const input = inputsRefs[index]?.current;
+
+    if (input) {
+      requestAnimationFrame(() => {
+        input.blur();
+      });
+    }
+  };
+
+  const onInputFocus = (index: number) => {
+    const input = inputsRefs[index]?.current;
+
+    if (input) {
+      setFocusedIndex(index);
+      selectInputContent(index);
+    }
+  };
+
+  const onInputChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const eventValue = event.target.value;
+    /**
+     * ensure we only display 1 character in the input
+     * by clearing the already setted value
+     */
+    const value = eventValue.replace(values[index], '');
+
+    /**
+     * if the value is not valid, don't go any further
+     * and select the content of the input for a better UX
+     */
+    if (!validate(value)) {
+      selectInputContent(index);
+      return;
+    }
+
+    /**
+     * otp code
+     */
+    if (value.length > 1) {
+      setValues(fillValues(eventValue));
+
+      const isCompleted = eventValue.length === length;
+
+      if (isCompleted) {
+        onCompleted(eventValue);
+        blurInput(index);
+        return;
       }
 
       return;
     }
 
-    // if the key pressed is not a number
-    // don't do anything
-    if (Number.isNaN(+key)) return;
+    setValue(value, index);
 
-    // reset the current value
-    // and set the new one
-    if (codeInput) codeInput.value = '';
-    newValue[activeIndex] = key;
-    setValue(newValue);
-
-    if (!isLast) {
-      setActiveIndex(nextIndex);
-      focusItem(nextIndex);
+    /**
+     * if the input is the last of the list
+     * blur it, otherwise focus the next one
+     */
+    if (index === length - 1) {
+      blurInput(index);
       return;
     }
 
-    if (codeInput) codeInput.blur();
-    if (currentItem) currentItem.blur();
-
-    setActiveIndex(-1);
+    focusInput(index + 1);
   };
 
-  // handle mobile autocompletion
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: changeValue } = e.target;
-    const isCode = isCodeRegex.test(changeValue);
+  const onInputKeyDown = (
+    event: KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const eventKey = event.key;
 
-    if (!isCode) return;
+    if (eventKey === 'Backspace' || eventKey === 'Delete') {
+      /**
+       * prevent trigger a change event
+       * `onInputChange` won't be called
+       */
+      event.preventDefault();
 
-    setValue(changeValue.split(''));
-    blurItem(activeIndex);
-  };
+      setValue('', focusedIndex);
+      focusInput(index - 1);
 
-  const onInputBlur = () => {
-    // https://github.com/ugogo/react-input-verification-code/issues/1
-    if (activeIndex === -1) return;
-
-    blurItem(activeIndex);
-    setActiveIndex(-1);
-  };
-
-  // autoFocus
-  React.useEffect(() => {
-    if (autoFocus && itemsRef[0].current) {
-      itemsRef[0].current.focus();
+      return;
     }
-  }, []);
 
-  // handle pasting
-  React.useEffect(() => {
-    const codeInput = codeInputRef.current;
-    if (!codeInput) return;
-
-    const onPaste = (e: ClipboardEvent) => {
-      e.preventDefault();
-
-      const pastedString = e.clipboardData?.getData('text');
-      if (!pastedString) return;
-
-      const isNumber = /^\d+$/.test(pastedString);
-      if (isNumber) setValue(pastedString.split('').slice(0, length));
-    };
-
-    codeInput.addEventListener('paste', onPaste);
-    return () => codeInput.removeEventListener('paste', onPaste);
-  }, []);
-
-  React.useEffect(() => {
-    const stringValue = value.join('');
-    const isCompleted = stringValue.length === length;
-
-    if (isCompleted && stringValue !== emptyValue.join(''))
-      onCompleted(stringValue);
-    onChange(stringValue);
-  }, [value, length]);
-
-  React.useEffect(() => {
-    if (typeof pValue !== 'string') return;
-
-    // avoid infinite loop
-    if (pValue === '' && value.join('') === emptyValue.join('')) return;
-
-    // keep internal and external states in sync
-    if (pValue !== value.join('')) setValue(pValue.split(''));
-  }, [pValue]);
-
-  const renderItemText = (itemValue: string) => {
-    if (itemValue === placeholder) return placeholder;
-    return type === 'password' ? passwordMask : itemValue;
+    /**
+     * since the value won't change, `onInputChange` won't be called
+     * only focus the next input
+     */
+    if (eventKey === values[index]) {
+      focusInput(index + 1);
+    }
   };
+
+  const onInputPaste = (
+    event: ClipboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    event.preventDefault();
+
+    const pastedValue = event.clipboardData.getData('text');
+    const nextValues = pastedValue.slice(0, length);
+
+    if (!validate(nextValues)) {
+      return;
+    }
+
+    setValues(fillValues(nextValues));
+
+    const isCompleted = nextValues.length === length;
+
+    if (isCompleted) {
+      onCompleted(nextValues);
+      blurInput(index);
+      return;
+    }
+
+    focusInput(nextValues.length);
+  };
+
+  /**
+   * autoFocus
+   */
+  useEffect(() => {
+    if (autoFocus) {
+      focusInput(0);
+    }
+  }, [inputsRefs]);
 
   return (
-    <React.Fragment>
-      <S.GlobalStyle />
-
-      <S.Container
-        className='ReactInputVerificationCode__container'
-        // needed for styling
-        itemsCount={length}
-      >
-        <S.Input
-          ref={codeInputRef}
-          className='ReactInputVerificationCode__input'
+    <div className='ReactInputVerificationCode-container'>
+      {inputsRefs.map((ref, i) => (
+        <input
           autoComplete='one-time-code'
-          type='text'
-          inputMode='decimal'
-          id='one-time-code'
-          // use onKeyUp rather than onChange for a better control
-          // onChange is still needed to handle the autocompletion
-          // when receiving a code by SMS
-          onChange={onInputChange}
-          onKeyUp={onInputKeyUp}
-          onBlur={onInputBlur}
-          // needed for styling
-          activeIndex={activeIndex}
-          data-cy={`${dataCy}-otc-input`}
+          className='ReactInputVerificationCode-item'
+          key={i}
+          onChange={(event) => onInputChange(event, i)}
+          onFocus={() => onInputFocus(i)}
+          onKeyDown={(event) => onInputKeyDown(event, i)}
+          onPaste={(event) => onInputPaste(event, i)}
+          placeholder={placeholder}
+          ref={ref}
+          value={values[i]}
+          {...inputProps}
         />
-
-        {itemsRef.map((ref, i) => (
-          <S.Item
-            key={i}
-            ref={ref}
-            role='button'
-            tabIndex={0}
-            className={`ReactInputVerificationCode__item ${
-              value[i] !== placeholder ? 'is-filled' : ''
-            } ${i === activeIndex ? 'is-active' : ''}`}
-            onFocus={onItemFocus(i)}
-            data-cy={`${dataCy}-${i}-item`}
-          >
-            {renderItemText(value[i])}
-          </S.Item>
-        ))}
-      </S.Container>
-    </React.Fragment>
+      ))}
+    </div>
   );
 };
 

@@ -1,13 +1,13 @@
 # react-input-verification-code
 
-A verification code input, autocompletion friendly
+A verification code input, mobile autocompletion friendly
 
 [![NPM](https://img.shields.io/npm/v/react-input-verification-code.svg)](https://www.npmjs.com/package/react-input-verification-code) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Features
 
 - Support native autocompletion when receiving a code via SMS
-- Support pasted string (when number)
+- Support pasted string
 
 ## Examples
 
@@ -20,27 +20,30 @@ A verification code input, autocompletion friendly
 ```
 {
   "react": ">=16.0.0",
-  "styled-components": ">=5.0.0"
+  "react-dom": ">=16.0.0"
 }
 ```
+
 ## Install
 
 ```bash
 yarn add react-input-verification-code
-
-# if you don't use `styled-components` in your project
-# you have to install it as well
-yarn add react-input-verification-code styled-components
 ```
 
 ## Usage
 
 ```tsx
-import * as React from 'react';
-import ReactInputVerificationCode from 'react-input-verification-code';
+import React from 'react';
+import ReactInputVerificationCode, {
+  ReactInputVerificationCodeProps,
+} from 'react-input-verification-code';
+
+const customProps: ReactInputVerificationCodeProps = {
+  autoFocus: true,
+};
 
 export default function App() {
-  return <ReactInputVerificationCode />;
+  return <ReactInputVerificationCode {...customProps} />;
 }
 ```
 
@@ -48,26 +51,30 @@ export default function App() {
 
 ### Props
 
-| Key         | Type       | Default    | Required | Description                                               |
-| ----------- | ---------- | ---------- | -------- | --------------------------------------------------------- |
-| autoFocus   | `boolean`  | false      | false    | Focus on render                                           |
-| length      | `number`   | `4`        | false    | How many items will be rendered                           |
-| onChange    | `function` | `() => {}` | false     | Function called when the value changes                    |
-| onCompleted | `function` | `() => {}` | false    | Function called when the code is completed                |
-| placeholder | `string`   | `·`        | false    | String rendered in each item when no value has been typed |
-| value       | `string`   | `() => {}` | false    | Control internal input value                              |
-| type        | `text` or `password` | `text`     | false    | Display the item value or a password mask       |
-| passwordMask | `string` | `•`    | false    | Password mask       |
+| Key         | Type                                           | Default      | Required | Description                                        |
+| ----------- | ---------------------------------------------- | ------------ | -------- | -------------------------------------------------- |
+| autoFocus   | `boolean`                                      | false        | false    | Should focus on first render                       |
+| inputProps  | `React.InputHTMLAttributes<HTMLInputElement>;` | `undefined`  | false    | Allow passing custom props into the inputs         |
+| length      | `number`                                       | `4`          | false    | How many inputs will be rendered                   |
+| onChange    | `function`                                     | `() => null` | false    | Function called when the value changes             |
+| onCompleted | `function`                                     | `() => null` | false    | Function called when the value is completed        |
+| placeholder | `string`                                       | `·`          | false    | Inputs placeholder                                 |
+| value       | `string`                                       | `""`         | false    | Default value                                      |
+| type        | `'alphanumeric, number'`                       | `number`     | false    | Should accepts alphanumeric values or only numbers |
 
-### CSS Properties
+### Custom Styles
 
-The following CSS properties are set globally so you can easily override them to fit your needs
+Simply override the styles using the following classnames
 
-| Key                                        | Default  | Description             |
-| ------------------------------------------ | -------- | ----------------------- |
-| `--ReactInputVerificationCode-itemWidth`   | `4.5rem` | Width of an item        |
-| `--ReactInputVerificationCode-itemHeight`  | `5rem`   | Height of an item       |
-| `--ReactInputVerificationCode-itemSpacing` | `1rem`   | Space between two items |
+```css
+.ReactInputVerificationCode-container {
+  /*  */
+}
+
+.ReactInputVerificationCode-item {
+  /*  */
+}
+```
 
 ## License
 

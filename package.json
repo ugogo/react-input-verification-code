@@ -1,13 +1,14 @@
 {
   "name": "react-input-verification-code",
-  "version": "1.0.2",
-  "description": "A verification code input, autocompletion friendly",
-  "author": "ugogo",
-  "license": "MIT",
+  "version": "2.0.0-1",
+  "description": "A React Verification Code Input, Autocompletion Friendly",
   "repository": "ugogo/react-input-verification-code",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "source": "src/index.tsx",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=10"
   },
@@ -15,74 +16,6 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "release-it": {
-    "git": {
-      "commitMessage": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "releaseName": "v${version}"
-    }
-  },
-  "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs --css-modules false",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs --css-modules false",
-    "start:playground": "npm start --prefix playground",
-    "dev": "run-p start start:playground",
-    "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "eslint \"./src/**/*.+(ts|tsx)\"",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
-    "release": "npm run test && npm run prepare && dotenv release-it",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "format": "prettier --write {src,playground}/**/*.{ts,tsx}",
-    "format:check": "prettier --check {src,playground}/**/*.{ts,tsx}"
-  },
-  "peerDependencies": {
-    "react": ">=16.0.0",
-    "styled-components": ">=5.0.0"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-react-jsx-self": "^7.16.7",
-    "@babel/plugin-transform-react-jsx-source": "^7.16.7",
-    "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^14.0.4",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.23",
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
-    "@types/styled-components": "^5.1.24",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "babel-eslint": "^10.0.3",
-    "cross-env": "^7.0.3",
-    "dotenv-cli": "^5.1.0",
-    "eslint": "^8.12.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-config-standard-react": "^11.0.1",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-standard": "^4.1.0",
-    "gh-pages": "^3.2.3",
-    "microbundle-crl": "^0.13.11",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "^5.0.0",
-    "release-it": "^14.14.0",
-    "typescript": "^4.6.3"
-  },
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "react",
     "verify",
@@ -91,6 +24,87 @@
     "pin-code",
     "authentication-code",
     "input",
-    "autocompletion"
-  ]
+    "autocompletion",
+    "otp",
+    "otp-code",
+    "one-time-password"
+  ],
+  "release-it": {
+    "hooks": {
+      "before:init": [
+        "npm run build"
+      ],
+      "after:release": "npm run storybook:deploy"
+    },
+    "git": {
+      "commitMessage": "v${version}",
+      "requireUpstream": false
+    },
+    "github": {
+      "release": true,
+      "releaseName": "v${version}"
+    }
+  },
+  "scripts": {
+    "dev": "npm run storybook",
+    "dev:watch": "rollup -cw",
+    "build": "rollup -c",
+    "release": "dotenv release-it",
+    "lint": "eslint src --ext .js,.ts,.tsx",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook",
+    "storybook:deploy": "storybook-to-ghpages"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack4": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/storybook-deployer": "^2.8.12",
+    "@types/node": "^18.7.18",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "babel-loader": "^8.2.5",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^6.0.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-typescript-sort-keys": "^2.1.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "release-it": "^15.4.2",
+    "rollup": "^2.79.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.34.0",
+    "styled-components": "^5.3.5",
+    "typescript": "^4.8.3"
+  },
+  "author": "Ugo Onali",
+  "license": "MIT"
 }
