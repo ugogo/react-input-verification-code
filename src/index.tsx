@@ -16,9 +16,8 @@ export interface ReactInputVerificationCodeProps {
   onChange?: (data: string) => void;
   onCompleted?: (data: string) => void;
   placeholder?: string;
-  value?: string;
-  dataCy?: string;
   type?: 'alphanumeric' | 'number';
+  value?: string;
 }
 
 const ReactInputVerificationCode = ({
@@ -27,9 +26,8 @@ const ReactInputVerificationCode = ({
   onChange = () => null,
   onCompleted = () => null,
   placeholder = '·',
-  value: defaultValue = '',
-  dataCy = 'verification-code',
   type = 'number',
+  value: defaultValue = '',
 }: ReactInputVerificationCodeProps) => {
   /**
    * generate a new array, map through it
@@ -213,25 +211,17 @@ const ReactInputVerificationCode = ({
 
   return (
     <div className='ReactInputVerificationCode-container'>
-      {/* <S.Input
-          autoComplete='one-time-code'
-          type='text'
-          activeIndex={activeIndex}
-          data-cy={`${dataCy}-otc-input`}
-        /> */}
-
       {inputsRefs.map((ref, i) => (
         <input
-          key={i}
-          ref={ref}
           className='ReactInputVerificationCode-item'
-          data-cy={`${dataCy}-${i}-item`}
-          value={values[i]}
+          key={i}
           onChange={(event) => onInputChange(event, i)}
           onFocus={() => onInputFocus(i)}
           onKeyDown={(event) => onInputKeyDown(event, i)}
           onPaste={(event) => onInputPaste(event, i)}
           placeholder={placeholder}
+          ref={ref}
+          value={values[i]}
         />
       ))}
     </div>

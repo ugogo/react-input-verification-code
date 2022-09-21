@@ -9,6 +9,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:typescript-sort-keys/recommended",
     "standard",
     "standard-jsx",
     "standard-react",
@@ -17,5 +18,9 @@
   "env": {
     "browser": true,
     "jest": true
+  },
+  "rules": {
+    "react/jsx-sort-props": "error",
+    "react/sort-prop-types": "error"
   }
 }

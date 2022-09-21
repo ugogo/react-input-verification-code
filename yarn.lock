@@ -2950,6 +2950,13 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
+"@typescript-eslint/experimental-utils@^5.0.0":
+  version "5.38.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.38.0.tgz#84e593a66138d75c11e85a0dbe9a8a6a013bf3cb"
+  integrity sha512-kzXBRfvGlicgGk4CYuRUqKvwc2s3wHXNssUWWJU18bhMRxriFm3BZWyQ6vEHBRpEIMKB6b7MIQHO+9lYlts19w==
+  dependencies:
+    "@typescript-eslint/utils" "5.38.0"
+
 "@typescript-eslint/parser@^5.38.0":
   version "5.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.38.0.tgz#5a59a1ff41a7b43aacd1bb2db54f6bf1c02b2ff8"
@@ -5956,6 +5963,15 @@ eslint-plugin-react@^7.31.8:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.7"
 
+eslint-plugin-typescript-sort-keys@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-typescript-sort-keys/-/eslint-plugin-typescript-sort-keys-2.1.0.tgz#f51764518aa512d83df9ba68ab2520b7b85ece2d"
+  integrity sha512-ET7ABypdz19m47QnKynzNfWPi4CTNQ5jQQC1X5d0gojIwblkbGiCa5IilsqzBTmqxZ0yXDqKBO/GBkBFQCOFsg==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^5.0.0"
+    json-schema "^0.4.0"
+    natural-compare-lite "^1.4.0"
+
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
@@ -8201,6 +8217,11 @@ json-schema-traverse@^0.4.1:
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
   integrity sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
 
+json-schema@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.4.0.tgz#f7de4cf6efab838ebaeb3236474cbba5a1930ab5"
+  integrity sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==
+
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
@@ -8974,6 +8995,11 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+natural-compare-lite@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/natural-compare-lite/-/natural-compare-lite-1.4.0.tgz#17b09581988979fddafe0201e931ba933c96cbb4"
+  integrity sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==
 
 natural-compare@^1.4.0:
   version "1.4.0"
