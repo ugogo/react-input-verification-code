@@ -135,13 +135,19 @@ const ReactInputVerificationCode = ({
       return;
     }
 
+    console.log('RIVC: onInputChange:value', value);
+
     /**
      * otp code
      */
     if (value.length > 1) {
+      console.log('RIVC: isOtp');
+
+      console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
       setValues(fillValues(eventValue));
 
       const isCompleted = eventValue.length === length;
+      console.log('RIVC isCompleted', isCompleted);
 
       if (isCompleted) {
         onCompleted(eventValue);
