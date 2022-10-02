@@ -135,6 +135,7 @@ const ReactInputVerificationCode = ({
       return;
     }
 
+    console.log('RIVC: onInputChange:eventValue', eventValue);
     console.log('RIVC: onInputChange:value', value);
 
     /**
