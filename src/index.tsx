@@ -36,11 +36,8 @@ const ReactInputVerificationCode = ({
    * generate a new array, map through it
    * and replace with the value when possible
    */
-  const fillValues = useCallback(
-    (value: string) =>
-      new Array(length).fill('').map((_, index) => value[index] ?? ''),
-    [length]
-  );
+  const fillValues = (value: string) =>
+    new Array(length).fill('').map((_, index) => value[index] ?? '');
 
   const [values, setValues] = useState(fillValues(defaultValue));
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
@@ -50,53 +47,44 @@ const ReactInputVerificationCode = ({
     [length]
   );
 
-  const validate = useCallback(
-    (input: string) => {
-      if (type === 'number') {
-        return /^\d/.test(input);
-      }
+  const validate = (input: string) => {
+    if (type === 'number') {
+      return /^\d/.test(input);
+    }
 
-      if (type === 'alphanumeric') {
-        return /^[a-zA-Z0-9]/.test(input);
-      }
+    if (type === 'alphanumeric') {
+      return /^[a-zA-Z0-9]/.test(input);
+    }
 
-      return true;
-    },
-    [type]
-  );
+    return true;
+  };
 
-  const selectInputContent = useCallback(
-    (index: number) => {
-      const input = inputsRefs[index].current;
+  const selectInputContent = (index: number) => {
+    const input = inputsRefs[index].current;
 
-      if (input) {
-        requestAnimationFrame(() => {
-          input.select();
-        });
-      }
-    },
-    [inputsRefs]
-  );
+    if (input) {
+      requestAnimationFrame(() => {
+        input.select();
+      });
+    }
+  };
 
-  const setValue = useCallback(
-    (value: string, index: number) => {
-      const nextValues = [...values];
-      nextValues[index] = value;
+  const setValue = (value: string, index: number) => {
+    const nextValues = [...values];
+    nextValues[index] = value;
 
-      setValues(nextValues);
+    setValues(nextValues);
 
-      const stringifiedValues = nextValues.join('');
-      const isCompleted = stringifiedValues.length === length;
+    const stringifiedValues = nextValues.join('');
+    const isCompleted = stringifiedValues.length === length;
 
-      if (isCompleted) {
-        onCompleted(stringifiedValues);
-        return;
-      }
+    if (isCompleted) {
+      onCompleted(stringifiedValues);
+      return;
+    }
 
-      onChange(stringifiedValues);
-    },
-    [length, onChange, onCompleted, values]
-  );
+    onChange(stringifiedValues);
+  };
 
   const focusInput = useCallback(
     (index: number) => {
@@ -111,139 +99,122 @@ const ReactInputVerificationCode = ({
     [inputsRefs]
   );
 
-  const blurInput = useCallback(
-    (index: number) => {
-      const input = inputsRefs[index]?.current;
+  const blurInput = (index: number) => {
+    const input = inputsRefs[index]?.current;
 
-      if (input) {
-        requestAnimationFrame(() => {
-          input.blur();
-        });
-      }
-    },
-    [inputsRefs]
-  );
-
-  const onInputFocus = useCallback(
-    (index: number) => {
-      const input = inputsRefs[index]?.current;
-
-      if (input) {
-        setFocusedIndex(index);
-        selectInputContent(index);
-      }
-    },
-    [inputsRefs, selectInputContent]
-  );
-
-  const onInputChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>, index: number) => {
-      event.preventDefault();
-
-      const eventValue = event.target.value;
-      console.log('-------');
-      console.log('RIVC:onInputChange', {
-        event,
-        eventValue,
-        focusedIndex,
-        index,
+    if (input) {
+      requestAnimationFrame(() => {
+        input.blur();
       });
+    }
+  };
 
-      /**
-       * otp code or pasted value
-       */
-      if (eventValue.length > 1) {
-        console.log('RIVC: isOtp', true);
-        console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
+  const onInputFocus = (index: number) => {
+    const input = inputsRefs[index]?.current;
 
-        setValues(fillValues(eventValue));
+    if (input) {
+      setFocusedIndex(index);
+      selectInputContent(index);
+    }
+  };
 
-        const isCompleted = eventValue.length === length;
-        console.log('RIVC: isCompleted', isCompleted);
+  const onInputChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    event.preventDefault();
 
-        if (isCompleted) {
-          onCompleted(eventValue);
-          blurInput(index);
-          return;
-        }
+    const eventValue = event.target.value;
+    console.log('-------');
+    console.log('RIVC:onInputChange', {
+      event,
+      eventValue,
+      focusedIndex,
+      index,
+    });
 
-        focusInput(eventValue.length);
-        return;
-      }
+    /**
+     * otp code or pasted value
+     */
+    if (eventValue.length > 1) {
+      console.log('RIVC: isOtp', true);
+      console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
 
-      console.log('RIVC: isOtp', false);
+      setValues(fillValues(eventValue));
 
-      /**
-       * ensure we only display 1 character in the input
-       * by clearing the already setted value
-       */
-      const value = eventValue.replace(values[index], '');
+      const isCompleted = eventValue.length === length;
+      console.log('RIVC: isCompleted', isCompleted);
 
-      /**
-       * if the value is not valid, don't go any further
-       * and select the content of the input for a better UX
-       */
-      if (!validate(value)) {
-        selectInputContent(index);
-        return;
-      }
-
-      console.log('RIVC', { value });
-
-      setValue(value, index);
-
-      /**
-       * if the input is the last of the list
-       * blur it, otherwise focus the next one
-       */
-      if (index === length - 1) {
+      if (isCompleted) {
+        onCompleted(eventValue);
         blurInput(index);
         return;
       }
 
-      focusInput(index + 1);
-    },
-    [
-      blurInput,
-      fillValues,
-      focusInput,
-      focusedIndex,
-      length,
-      onCompleted,
-      selectInputContent,
-      setValue,
-      validate,
-      values,
-    ]
-  );
+      focusInput(eventValue.length);
+      return;
+    }
 
-  const onInputKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>, index: number) => {
-      const eventKey = event.key;
+    console.log('RIVC: isOtp', false);
 
-      if (eventKey === 'Backspace' || eventKey === 'Delete') {
-        /**
-         * prevent trigger a change event
-         * `onInputChange` won't be called
-         */
-        event.preventDefault();
+    /**
+     * ensure we only display 1 character in the input
+     * by clearing the already setted value
+     */
+    const value = eventValue.replace(values[index], '');
 
-        setValue('', focusedIndex);
-        focusInput(index - 1);
+    /**
+     * if the value is not valid, don't go any further
+     * and select the content of the input for a better UX
+     */
+    if (!validate(value)) {
+      selectInputContent(index);
+      return;
+    }
 
-        return;
-      }
+    console.log('RIVC', { value });
 
+    setValue(value, index);
+
+    /**
+     * if the input is the last of the list
+     * blur it, otherwise focus the next one
+     */
+    if (index === length - 1) {
+      blurInput(index);
+      return;
+    }
+
+    focusInput(index + 1);
+  };
+
+  const onInputKeyDown = (
+    event: KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const eventKey = event.key;
+
+    if (eventKey === 'Backspace' || eventKey === 'Delete') {
       /**
-       * since the value won't change, `onInputChange` won't be called
-       * only focus the next input
+       * prevent trigger a change event
+       * `onInputChange` won't be called
        */
-      if (eventKey === values[index]) {
-        focusInput(index + 1);
-      }
-    },
-    [focusInput, focusedIndex, setValue, values]
-  );
+      event.preventDefault();
+
+      setValue('', focusedIndex);
+      focusInput(index - 1);
+
+      return;
+    }
+
+    /**
+     * since the value won't change, `onInputChange` won't be called
+     * only focus the next input
+     */
+    if (eventKey === values[index]) {
+      focusInput(index + 1);
+    }
+  };
 
   /**
    * autoFocus
