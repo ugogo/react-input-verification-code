@@ -120,28 +120,16 @@ const ReactInputVerificationCode = ({
     index: number
   ) => {
     const eventValue = event.target.value;
-    /**
-     * ensure we only display 1 character in the input
-     * by clearing the already setted value
-     */
-    const value = eventValue.replace(values[index], '');
-
-    /**
-     * if the value is not valid, don't go any further
-     * and select the content of the input for a better UX
-     */
-    if (!validate(value)) {
-      selectInputContent(index);
-      return;
-    }
-
-    console.log('RIVC: onInputChange:eventValue', eventValue);
-    console.log('RIVC: onInputChange:value', value);
+    console.log(
+      'RIVC: onInputChange:eventValue',
+      eventValue,
+      eventValue.length
+    );
 
     /**
      * otp code
      */
-    if (value.length > 1) {
+    if (eventValue.length > 1) {
       console.log('RIVC: isOtp');
 
       console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
@@ -158,6 +146,23 @@ const ReactInputVerificationCode = ({
 
       return;
     }
+
+    /**
+     * ensure we only display 1 character in the input
+     * by clearing the already setted value
+     */
+    const value = eventValue.replace(values[index], '');
+
+    /**
+     * if the value is not valid, don't go any further
+     * and select the content of the input for a better UX
+     */
+    if (!validate(value)) {
+      selectInputContent(index);
+      return;
+    }
+
+    console.log('RIVC: onInputChange:value', value);
 
     setValue(value, index);
 
