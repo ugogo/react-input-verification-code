@@ -1,6 +1,6 @@
 {
   "name": "react-input-verification-code",
-  "version": "2.0.0-6",
+  "version": "2.0.0-7",
   "description": "A React Verification Code Input, Autocompletion Friendly",
   "repository": "ugogo/react-input-verification-code",
   "main": "lib/cjs/index.js",
