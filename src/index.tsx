@@ -131,6 +131,7 @@ const ReactInputVerificationCode = ({
      */
     if (eventValue.length > 1) {
       console.log('RIVC: isOtp');
+      console.log('RIVC: isOtp:focusedIndex', focusedIndex, index);
 
       console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
       setValues(fillValues(eventValue));
@@ -245,7 +246,7 @@ const ReactInputVerificationCode = ({
     <div className='ReactInputVerificationCode-container'>
       {inputsRefs.map((ref, i) => (
         <input
-          autoComplete='one-time-code'
+          {...(focusedIndex === i && { autoComplete: 'one-time-code' })}
           className='ReactInputVerificationCode-item'
           key={i}
           onChange={(event) => onInputChange(event, i)}
