@@ -1,6 +1,5 @@
 import React, {
   ChangeEvent,
-  ClipboardEvent,
   createRef,
   InputHTMLAttributes,
   KeyboardEvent,
@@ -139,6 +138,8 @@ const ReactInputVerificationCode = ({
 
   const onInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>, index: number) => {
+      event.preventDefault();
+
       const eventValue = event.target.value;
       console.log('-------');
       console.log('RIVC:onInputChange', {
@@ -149,9 +150,9 @@ const ReactInputVerificationCode = ({
       });
 
       /**
-       * otp code
+       * otp code or pasted value
        */
-      if (eventValue.length > 2) {
+      if (eventValue.length > 1) {
         console.log('RIVC: isOtp', true);
         console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
 
@@ -166,6 +167,7 @@ const ReactInputVerificationCode = ({
           return;
         }
 
+        focusInput(eventValue.length);
         return;
       }
 
@@ -243,32 +245,6 @@ const ReactInputVerificationCode = ({
     [focusInput, focusedIndex, setValue, values]
   );
 
-  const onInputPaste = useCallback(
-    (event: ClipboardEvent<HTMLInputElement>, index: number) => {
-      event.preventDefault();
-
-      const pastedValue = event.clipboardData.getData('text');
-      const nextValues = pastedValue.slice(0, length);
-
-      if (!validate(nextValues)) {
-        return;
-      }
-
-      setValues(fillValues(nextValues));
-
-      const isCompleted = nextValues.length === length;
-
-      if (isCompleted) {
-        onCompleted(nextValues);
-        blurInput(index);
-        return;
-      }
-
-      focusInput(nextValues.length);
-    },
-    [blurInput, fillValues, focusInput, length, onCompleted, validate]
-  );
-
   /**
    * autoFocus
    */
@@ -282,14 +258,13 @@ const ReactInputVerificationCode = ({
     <div className='ReactInputVerificationCode-container'>
       {inputsRefs.map((ref, i) => (
         <input
-          autoComplete={focusedIndex === i ? 'one-time-code' : 'off'}
+          autoComplete='one-time-code'
           className='ReactInputVerificationCode-item'
           inputMode={type === 'number' ? 'numeric' : 'text'}
           key={i}
           onChange={(event) => onInputChange(event, i)}
           onFocus={() => onInputFocus(i)}
           onKeyDown={(event) => onInputKeyDown(event, i)}
-          onPaste={(event) => onInputPaste(event, i)}
           placeholder={placeholder}
           ref={ref}
           value={values[i]}
