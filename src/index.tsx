@@ -151,7 +151,7 @@ const ReactInputVerificationCode = ({
       /**
        * otp code
        */
-      if (eventValue.length > 1) {
+      if (eventValue.length > 2) {
         console.log('RIVC: isOtp', true);
         console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
 
