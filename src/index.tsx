@@ -255,6 +255,7 @@ const ReactInputVerificationCode = ({
           onPaste={(event) => onInputPaste(event, i)}
           placeholder={placeholder}
           ref={ref}
+          type={type === 'number' ? 'tel' : 'text'}
           value={values[i]}
           {...inputProps}
         />
