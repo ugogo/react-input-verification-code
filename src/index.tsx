@@ -120,24 +120,25 @@ const ReactInputVerificationCode = ({
     index: number
   ) => {
     const eventValue = event.target.value;
-    console.log(
-      'RIVC: onInputChange:eventValue',
+    console.log('-------');
+    console.log('RIVC:onInputChange', {
+      event,
       eventValue,
-      eventValue.length
-    );
+      focusedIndex,
+      index,
+    });
 
     /**
      * otp code
      */
     if (eventValue.length > 1) {
-      console.log('RIVC: isOtp');
-      console.log('RIVC: isOtp:focusedIndex', focusedIndex, index);
-
+      console.log('RIVC: isOtp', true);
       console.log('RIVC: fillValues(eventValue)', fillValues(eventValue));
+
       setValues(fillValues(eventValue));
 
       const isCompleted = eventValue.length === length;
-      console.log('RIVC isCompleted', isCompleted);
+      console.log('RIVC: isCompleted', isCompleted);
 
       if (isCompleted) {
         onCompleted(eventValue);
@@ -147,6 +148,8 @@ const ReactInputVerificationCode = ({
 
       return;
     }
+
+    console.log('RIVC: isOtp', false);
 
     /**
      * ensure we only display 1 character in the input
@@ -163,7 +166,7 @@ const ReactInputVerificationCode = ({
       return;
     }
 
-    console.log('RIVC: onInputChange:value', value);
+    console.log('RIVC', { value });
 
     setValue(value, index);
 
@@ -246,8 +249,9 @@ const ReactInputVerificationCode = ({
     <div className='ReactInputVerificationCode-container'>
       {inputsRefs.map((ref, i) => (
         <input
-          {...(focusedIndex === i && { autoComplete: 'one-time-code' })}
+          autoComplete={focusedIndex === i ? 'one-time-code' : 'off'}
           className='ReactInputVerificationCode-item'
+          inputMode={type === 'number' ? 'numeric' : 'text'}
           key={i}
           onChange={(event) => onInputChange(event, i)}
           onFocus={() => onInputFocus(i)}
@@ -255,7 +259,6 @@ const ReactInputVerificationCode = ({
           onPaste={(event) => onInputPaste(event, i)}
           placeholder={placeholder}
           ref={ref}
-          type={type === 'number' ? 'tel' : 'text'}
           value={values[i]}
           {...inputProps}
         />
