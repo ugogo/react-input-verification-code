@@ -4,7 +4,7 @@
   "parserOptions": {
     "project": ["./tsconfig.json", "rollup.config.js"]
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "react-hooks"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -20,6 +20,8 @@
   },
   "rules": {
     "react/jsx-sort-props": "error",
-    "react/sort-prop-types": "error"
+    "react/sort-prop-types": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
