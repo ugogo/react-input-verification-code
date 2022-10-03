@@ -4,6 +4,7 @@ import React, {
   createRef,
   InputHTMLAttributes,
   KeyboardEvent,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -86,15 +87,18 @@ const ReactInputVerificationCode = ({
     onChange(stringifiedValues);
   };
 
-  const focusInput = (index: number) => {
-    const input = inputsRefs[index]?.current;
+  const focusInput = useCallback(
+    (index: number) => {
+      const input = inputsRefs[index]?.current;
 
-    if (input) {
-      requestAnimationFrame(() => {
-        input.focus();
-      });
-    }
-  };
+      if (input) {
+        requestAnimationFrame(() => {
+          input.focus();
+        });
+      }
+    },
+    [inputsRefs]
+  );
 
   const blurInput = (index: number) => {
     const input = inputsRefs[index]?.current;
@@ -227,7 +231,7 @@ const ReactInputVerificationCode = ({
     if (autoFocus) {
       focusInput(0);
     }
-  }, [inputsRefs]);
+  }, [autoFocus, focusInput, inputsRefs]);
 
   return (
     <div className='ReactInputVerificationCode-container'>
