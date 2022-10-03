@@ -1,3 +1,7 @@
+## **⚠️ This README is for the `v2` which is currently in beta release**
+## **The `v1` can been found [here](https://github.com/ugogo/react-input-verification-code/tree/1.0.2)**
+
+---
 # react-input-verification-code
 
 A verification code input, mobile autocompletion friendly
