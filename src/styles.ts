@@ -9,31 +9,31 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 interface ContainerProps {
-  itemsCount: number;
+  itemscount: number;
 }
 
 export const Container = styled.div<ContainerProps>`
   display: flex;
   position: relative;
   justify-content: space-between;
-  width: ${({ itemsCount }) =>
+  width: ${({ itemscount }) =>
     `calc(
-      var(--ReactInputVerificationCode-itemWidth) * ${itemsCount}
-      + var(--ReactInputVerificationCode-itemSpacing) * (${itemsCount} - 1)
+      var(--ReactInputVerificationCode-itemWidth) * ${itemscount}
+      + var(--ReactInputVerificationCode-itemSpacing) * (${itemscount} - 1)
     )`};
 `;
 
 interface InputProps {
-  activeIndex: number;
+  activeindex: number;
 }
 
 export const Input = styled.input<InputProps>`
   position: absolute;
   top: 0;
-  left: ${({ activeIndex }) =>
+  left: ${({ activeindex }) =>
     `calc(
-      var(--ReactInputVerificationCode-itemWidth) * ${activeIndex}
-      + var(--ReactInputVerificationCode-itemSpacing) * ${activeIndex}
+      var(--ReactInputVerificationCode-itemWidth) * ${activeindex}
+      + var(--ReactInputVerificationCode-itemSpacing) * ${activeindex}
     )`};
   opacity: 0;
   width: var(--ReactInputVerificationCode-itemWidth);

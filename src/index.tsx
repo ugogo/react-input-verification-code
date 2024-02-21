@@ -183,7 +183,7 @@ const ReactInputVerificationCode = ({
       <S.Container
         className='ReactInputVerificationCode__container'
         // needed for styling
-        itemsCount={length}
+        itemscount={length}
       >
         <S.Input
           ref={codeInputRef}
@@ -199,7 +199,7 @@ const ReactInputVerificationCode = ({
           onKeyUp={onInputKeyUp}
           onBlur={onInputBlur}
           // needed for styling
-          activeIndex={activeIndex}
+          activeindex={activeIndex}
           data-cy={`${dataCy}-otc-input`}
         />
 
