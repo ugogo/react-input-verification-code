@@ -67,7 +67,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-interactions": "^8.1.11",
     "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-webpack4": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.12",
